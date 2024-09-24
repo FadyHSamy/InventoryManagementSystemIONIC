@@ -1,0 +1,7 @@
+{
+  "name": "InventoryManagementSystemIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
