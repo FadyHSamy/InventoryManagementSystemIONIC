@@ -1,0 +1,12 @@
+@import 'variables';
+@import 'dark-theme';
+@import 'light-theme';
+
+// Theme Variables
+$theme: 'light';
+
+@if $theme == 'dark' {
+  @import 'dark-theme';
+} @else {
+  @import 'light-theme';
+}

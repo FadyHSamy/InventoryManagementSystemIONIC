@@ -1,0 +1,18 @@
+// Light Theme Styles
+body {
+  background-color: $light-color;
+  color: $dark-color;
+}
+
+ion-header {
+  background-color: $light-color;
+  color: $dark-color;
+}
+
+ion-content {
+  background-color: $light-color;
+}
+
+a {
+  color: $secondary-color;
+}

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ButtonComponent } from './components/button/button.component';
+import { SideMenuComponent } from '../core/layout/side-menu/side-menu.component';
 // Shared components, directives, and pipes
 // import { SpinnerComponent } from './components/spinner/spinner.component';
 // import { ModalComponent } from './components/modal/modal.component';
@@ -9,21 +10,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
-  declarations: [
-    // SpinnerComponent,
-    // ModalComponent,
-    // HighlightDirective,
-    // CapitalizePipe
+  declarations: [],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    SideMenuComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // SpinnerComponent,
-    // ModalComponent,
-    // HighlightDirective,
-    // CapitalizePipe
+    ButtonComponent,
+    SideMenuComponent,
   ],
 })
 export class SharedModule {}

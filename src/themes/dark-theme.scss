@@ -1,0 +1,18 @@
+// Dark Theme Styles
+body {
+  background-color: $dark-color;
+  color: $light-color;
+}
+
+ion-header {
+  background-color: $dark-color;
+  color: $light-color;
+}
+
+ion-content {
+  background-color: $dark-color;
+}
+
+a {
+  color: $primary-color;
+}
