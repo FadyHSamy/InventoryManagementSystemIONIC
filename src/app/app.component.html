@@ -1,3 +1,46 @@
-<app-base-layout>
-  <ion-router-outlet></ion-router-outlet>
-</app-base-layout>
+<ion-app>
+  <ion-split-pane when="(min-width: 576px)" contentId="main">
+    <ion-menu class="ionMenu" contentId="main">
+      <ion-header>
+        <ion-toolbar color="tertiary">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list lines="none">
+          <ion-item *ngFor="let page of sideMenu" lines="none">
+            <ion-icon [name]="page.icon" class="ion-padding-end"></ion-icon>
+            <ion-label>{{ page.name }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <div class="ion-page" id="main">
+      <ion-header collapse="fade">
+        <ion-toolbar >
+          <ion-title>
+            <ion-menu-toggle>
+              <ion-button fill="clear" size="large">
+                <ion-icon
+                  slot="icon-only"
+                  name="menu"
+                  id="main-content"
+                ></ion-icon
+              ></ion-button>
+            </ion-menu-toggle>
+            <ion-label> Header </ion-label>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-content>
+      <!-- <ion-footer>
+        <ion-toolbar>
+          <ion-title>Footer</ion-title>
+        </ion-toolbar>
+      </ion-footer> -->
+    </div>
+  </ion-split-pane>
+</ion-app>

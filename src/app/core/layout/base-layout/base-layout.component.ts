@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from 'src/app/shared/shared.module';
 import {
   IonApp,
   IonHeader,
@@ -13,31 +12,21 @@ import {
   IonButton,
   IonIcon,
   IonList,
-  IonItem, IonSplitPane } from '@ionic/angular/standalone';
+  IonItem,
+  IonSplitPane,
+} from '@ionic/angular/standalone';
 import { Routes } from '@angular/router';
 import { routes } from 'src/app/app.routes';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-base-layout',
   templateUrl: './base-layout.component.html',
   styleUrls: ['./base-layout.component.scss'],
   standalone: true,
-  imports: [IonSplitPane,
-    IonItem,
-    IonList,
-    IonIcon,
-    IonContent,
-    IonFooter,
-    IonRouterOutlet,
-    IonTitle,
-    IonToolbar,
-    IonHeader,
-    IonApp,
-    IonMenuToggle,
-    IonButton,
-    SharedModule,
-    IonMenu,
-  ],
+  imports: [CommonModule,IonicModule],
 })
 export class BaseLayoutComponent implements OnInit {
   constructor() {}

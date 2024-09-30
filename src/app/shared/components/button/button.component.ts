@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonButton } from '@ionic/angular/standalone';
+import { IonButton } from "@ionic/angular/standalone";
+import { IonicModule } from '@ionic/angular';
 
 export interface ButtonComponentInterface {
   buttonName: string;
@@ -8,11 +9,11 @@ export interface ButtonComponentInterface {
 }
 
 @Component({
-  selector: 'ionButton',
+  selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   standalone: true,
-  imports: [IonButton],
+  imports: [IonButton, IonicModule],
 })
 export class ButtonComponent implements OnInit {
   @Input({ required: true }) buttonInputs!: ButtonComponentInterface;

@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-button
       class="no-ripple"
@@ -15,14 +15,14 @@
   class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
 >
   <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-    <ul class="space-y-2 font-medium" *ngFor="let page of routes">
-      <li>
+    <ul class="space-y-2 font-medium">
+      <li *ngFor="let page of pages">
         <a
-          href={{page.path}}
+          [routerLink]="page.path"
           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
         >
-          <ion-icon size="" name="pie-chart"></ion-icon>
-          <span class="ms-3">{{ page.title }}</span>
+          <ion-icon name="pie-chart"></ion-icon>
+          <span class="ms-3">{{ page.name }}</span>
         </a>
       </li>
     </ul>
@@ -40,4 +40,4 @@
       </li>
     </ul>
   </div>
-</aside>
+</aside> -->

@@ -1,0 +1,32 @@
+ion-split-pane {
+  --side-width: 270px !important;
+  --side-max-width: 270px !important;
+  ion-menu {
+    --width: 270px !important;
+    --max-width: 270px !important;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  ion-split-pane {
+    --side-width: 68px !important;
+    --side-max-width: 68px !important;
+    --side-min-width: 68px !important;
+    ion-menu {
+      --width: 68px !important;
+      --max-width: 68px !important;
+      --min-width: 68px !important;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  ion-split-pane {
+    --side-width: 270px !important;
+    --side-max-width: 270px !important;
+    ion-menu {
+      --width: 270px !important;
+      --max-width: 270px !important;
+    }
+  }
+}
