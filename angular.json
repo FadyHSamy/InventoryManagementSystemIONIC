@@ -31,7 +31,11 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/themes/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/assets/themes/dark-theme.scss",
+              "src/assets/themes/light-theme.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -106,7 +110,11 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/themes/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/assets/themes/dark-theme.scss",
+              "src/assets/themes/light-theme.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -126,9 +134,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@ionic/angular-toolkit"
-    ],
+    "schematicCollections": ["@ionic/angular-toolkit"],
     "analytics": false
   },
   "schematics": {

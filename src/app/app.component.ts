@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   IonApp,
   IonRouterOutlet,
@@ -15,7 +15,14 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonFooter, IonButton, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle } from '@ionic/angular/standalone';
+  IonFooter,
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonCardSubtitle,
+} from '@ionic/angular/standalone';
 import { CoreModule } from './core/core.module';
 import { BaseLayoutComponent } from './core/layout/base-layout/base-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,12 +31,20 @@ import {
   SideMenuInterface,
   SideMenuService,
 } from './core/layout/side-menu/side-menu.service';
+import { ThemeToggleComponent } from './shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [IonCardSubtitle, IonCardTitle, IonCardContent, IonCardHeader, IonCard, IonButton,
+  imports: [
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonCardHeader,
+    IonCard,
+    IonButton,
     IonFooter,
     IonTitle,
     IonToolbar,
@@ -50,6 +65,7 @@ import {
     BaseLayoutComponent,
     ReactiveFormsModule,
     CommonModule,
+    ThemeToggleComponent,
   ],
 })
 export class AppComponent implements OnInit {
@@ -57,6 +73,5 @@ export class AppComponent implements OnInit {
   sideMenu: SideMenuInterface[] = [];
   ngOnInit() {
     this.sideMenu = this.sideMenuService.getActiveSideMenu();
-    console.log('this.sideMenu', this.sideMenu);
   }
 }

@@ -1,6 +1,6 @@
 <ion-app>
-  <ion-split-pane when="(min-width: 576px)" contentId="main">
-    <ion-menu class="ionMenu" contentId="main">
+  <ion-split-pane when="lg" contentId="main">
+    <ion-menu contentId="main">
       <ion-header>
         <ion-toolbar color="tertiary">
           <ion-title>Menu</ion-title>
@@ -13,12 +13,17 @@
             <ion-label>{{ page.name }}</ion-label>
           </ion-item>
         </ion-list>
+        <ion-list class="absolute inset-x-0 bottom-0" lines="none">
+          <ion-item lines="none">
+            <app-theme-toggle class="w-full"></app-theme-toggle>
+          </ion-item>
+        </ion-list>
       </ion-content>
     </ion-menu>
 
     <div class="ion-page" id="main">
       <ion-header collapse="fade">
-        <ion-toolbar >
+        <ion-toolbar>
           <ion-title>
             <ion-menu-toggle>
               <ion-button fill="clear" size="large">
@@ -36,11 +41,6 @@
       <ion-content>
         <ion-router-outlet></ion-router-outlet>
       </ion-content>
-      <!-- <ion-footer>
-        <ion-toolbar>
-          <ion-title>Footer</ion-title>
-        </ion-toolbar>
-      </ion-footer> -->
     </div>
   </ion-split-pane>
 </ion-app>
