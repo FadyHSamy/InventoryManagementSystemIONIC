@@ -1,43 +1,25 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-button
-      class="no-ripple"
-      slot="start"
-      fill="clear"
-      (click)="openSideBarButton()"
-    >
-      <ion-icon name="menu" color="red"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
-
-<aside
-  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
->
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-    <ul class="space-y-2 font-medium">
-      <li *ngFor="let page of pages">
-        <a
-          [routerLink]="page.path"
-          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-        >
-          <ion-icon name="pie-chart"></ion-icon>
-          <span class="ms-3">{{ page.name }}</span>
-        </a>
-      </li>
-    </ul>
-    <ul
-      class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700"
-    >
-      <li>
-        <a
-          href="#"
-          class="flex items-center p-2 text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-        >
-          <ion-icon name="log-out"></ion-icon>
-          <span class="ms-3">Log Out</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</aside> -->
+<ion-menu contentId="main" swipeGesture="false">
+  <ion-header>
+    <ion-toolbar color="tertiary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list lines="none">
+      <ion-item
+      [button]="true"
+        [routerLink]="page.path"
+        *ngFor="let page of sideMenu"
+        lines="none"
+      >
+        <ion-icon [name]="page.icon" class="ion-padding-end"></ion-icon>
+        <ion-label>{{ page.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list class="absolute inset-x-0 bottom-0" lines="none">
+      <ion-item lines="none">
+        <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

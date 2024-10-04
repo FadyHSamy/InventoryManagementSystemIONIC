@@ -1,6 +1,6 @@
-ion-icon {
-  font-size: 25px;
-}
-.no-ripple {
-  --ripple-color: transparent;
+ion-menu {
+  height: 100%;
+  height: -moz-available; /* WebKit-based browsers will ignore this. */
+  height: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
+  height: fill-available;
 }

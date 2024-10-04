@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ThemeService } from 'src/app/core/services/theme.service';
 import {
   IonInput,
@@ -28,18 +28,16 @@ import {
   ],
 })
 export class ThemeToggleComponent implements OnInit {
-  constructor(private themeService: ThemeService) {}
+  constructor() {}
 
-  isDarkMode: boolean = false;
+  themeService: ThemeService = inject(ThemeService);
 
-  ngOnInit() {
-    const theme = localStorage.getItem('theme') || 'light';
-    this.isDarkMode = theme === 'dark';
-  }
-
-  switchTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    this.themeService.toggleTheme(this.isDarkMode);
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  ngOnInit() {}
+  test: boolean = false;
+  toggleTheme() {
+    this.test
+      ? this.themeService.setLightTheme()
+      : this.themeService.setDarkTheme();
+    this.test = !this.test;
   }
 }
