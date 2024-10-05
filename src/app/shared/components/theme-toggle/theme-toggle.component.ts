@@ -10,6 +10,8 @@ import {
   IonNote,
   IonToggle,
 } from '@ionic/angular/standalone';
+import { LabelComponent } from "../label/label.component";
+import { IconComponent } from "../icon/icon.component";
 
 @Component({
   selector: 'app-theme-toggle',
@@ -25,19 +27,16 @@ import {
     IonIcon,
     IonCheckbox,
     IonInput,
-  ],
+    LabelComponent,
+    IconComponent
+],
 })
 export class ThemeToggleComponent implements OnInit {
   constructor() {}
 
   themeService: ThemeService = inject(ThemeService);
 
-  ngOnInit() {}
-  test: boolean = false;
-  toggleTheme() {
-    this.test
-      ? this.themeService.setLightTheme()
-      : this.themeService.setDarkTheme();
-    this.test = !this.test;
+  ngOnInit() {
+    this.themeService.initTheme();
   }
 }

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { addIcons } from 'ionicons';
-import { logIn, create, home, menu, personAdd } from 'ionicons/icons';
+import { IonIcons } from 'src/app/shared/components/icon/icon.component';
 
 export interface SideMenuInterface {
   name: string;
-  icon: string;
+  icon: IonIcons;
   path: string;
   showInMenu: boolean;
 }
@@ -12,14 +11,18 @@ export interface SideMenuInterface {
   providedIn: 'root',
 })
 export class SideMenuService {
-  constructor() {
-    addIcons({ logIn, create, home, menu, personAdd });
-  }
+  constructor() {}
   private sideMenu: SideMenuInterface[] = [
     {
+      name: 'Home',
+      icon: 'home',
+      path: '/home',
+      showInMenu: true,
+    },
+    {
       name: 'User Register',
-      icon: 'person-add',
-      path: 'auth/user-register',
+      icon: 'person',
+      path: '/auth/user-register',
       showInMenu: true,
     },
   ];

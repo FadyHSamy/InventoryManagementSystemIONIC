@@ -4,47 +4,65 @@ export enum AppTheme {
   LIGHT = 'light',
   DARK = 'dark',
 }
-// for SSR and SSG support.
-const CLIENT_RENDER = typeof localStorage !== 'undefined';
-// name of variable in localStorage.
-const LS_THEME = 'theme';
-// previously selected value by user, if available.
-let selectedTheme: AppTheme | undefined = undefined;
-// if render happens on client side
-if (CLIENT_RENDER) {
-  // then set value from localStorage or if it not available leave it undefined.
-  selectedTheme = (localStorage.getItem(LS_THEME) as AppTheme) || undefined;
-}
+
+const isClient = typeof localStorage !== 'undefined';
+const THEME_KEY = 'theme';
+const defaultTheme = isClient ? (localStorage.getItem(THEME_KEY) as AppTheme) : undefined;
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  currentTheme = signal<AppTheme | undefined>(selectedTheme);
+  currentTheme = signal<AppTheme | undefined>(defaultTheme);
+
   setLightTheme() {
-    this.currentTheme.set(AppTheme.LIGHT);
-    this.setToLocalStorage(AppTheme.LIGHT);
-    this.removeClassFromHtml('dark');
+    this.setTheme(AppTheme.LIGHT);
+    this.removeHtmlClass('dark');
   }
+
   setDarkTheme() {
-    this.currentTheme.set(AppTheme.DARK);
-    this.setToLocalStorage(AppTheme.DARK);
-    this.addClassToHtml('dark');
+    this.setTheme(AppTheme.DARK);
+    this.addHtmlClass('dark');
   }
-  private addClassToHtml(className: string) {
-    if (CLIENT_RENDER) {
-      this.removeClassFromHtml(className);
+
+  toggleTheme() {
+    this.isDarkTheme() ? this.setLightTheme() : this.setDarkTheme();
+  }
+
+  isDarkTheme() {
+    return this.currentTheme() === AppTheme.DARK;
+  }
+
+  initTheme() {
+    this.isDarkTheme() ? this.setDarkTheme() : this.setLightTheme();
+  }
+
+  // Private helper methods
+  private setTheme(theme: AppTheme) {
+    this.currentTheme.set(theme);
+    this.saveThemeToLocalStorage(theme);
+  }
+
+  private addHtmlClass(className: string) {
+    if (isClient) {
       document.documentElement.classList.add(className);
     }
   }
-  private removeClassFromHtml(className: string) {
-    if (CLIENT_RENDER) {
+
+  private removeHtmlClass(className: string) {
+    if (isClient) {
       document.documentElement.classList.remove(className);
     }
   }
-  private setToLocalStorage(theme: AppTheme) {
-    if (CLIENT_RENDER) {
-      localStorage.setItem(LS_THEME, theme);
+
+  private saveThemeToLocalStorage(theme: AppTheme) {
+    if (isClient) {
+      localStorage.setItem(THEME_KEY, theme);
     }
   }
 
+  private getSavedTheme() {
+    return (localStorage?.getItem(THEME_KEY) || AppTheme.LIGHT) as AppTheme;
+  }
 }

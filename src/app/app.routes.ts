@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'product',
-    title: 'Product',
     loadComponent: () =>
       import('./features/products/products.page').then((m) => m.ProductsPage),
   },
@@ -14,5 +13,9 @@ export const routes: Routes = [
         (m) => m.UserRegisterPage
       ),
   },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home.page').then((m) => m.HomePage),
+  },
 ];
-

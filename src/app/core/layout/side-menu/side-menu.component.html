@@ -1,22 +1,23 @@
 <ion-menu contentId="main" swipeGesture="false">
-  <ion-header>
-    <ion-toolbar color="tertiary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-content>
-    <ion-list lines="none">
+    <ion-list
+      lines="none"
+      class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800"
+    >
       <ion-item
-      [button]="true"
+        [button]="true"
         [routerLink]="page.path"
         *ngFor="let page of sideMenu"
-        lines="none"
       >
-        <ion-icon [name]="page.icon" class="ion-padding-end"></ion-icon>
-        <ion-label>{{ page.name }}</ion-label>
+        <app-icon [iconName]="page.icon" class="ion-padding-end"></app-icon>
+        <!-- <ion-icon [name]="page.icon" class="ion-padding-end"></ion-icon> -->
+        <app-label>{{ page.name }}</app-label>
       </ion-item>
     </ion-list>
-    <ion-list class="absolute inset-x-0 bottom-0" lines="none">
+    <ion-list
+      class="absolute inset-x-0 bottom-0 bg-gray-50 dark:bg-gray-800"
+      lines="none"
+    >
       <ion-item lines="none">
         <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
       </ion-item>
