@@ -31,8 +31,8 @@ import {
 } from '@ionic/angular/standalone';
 import { ThemeToggleComponent } from '../../../shared/components/theme-toggle/theme-toggle.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LabelComponent } from "../../../shared/components/label/label.component";
-import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { LabelComponent } from "../../../shared/components/ui/label/label.component";
+import { IconComponent } from "../../../shared/components/ui/icon/icon.component";
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',

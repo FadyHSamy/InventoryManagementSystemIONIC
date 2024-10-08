@@ -10,8 +10,8 @@ import {
   IonNote,
   IonToggle,
 } from '@ionic/angular/standalone';
-import { LabelComponent } from "../label/label.component";
-import { IconComponent } from "../icon/icon.component";
+import { LabelComponent } from "../ui/label/label.component";
+import { IconComponent } from "../ui/icon/icon.component";
 
 @Component({
   selector: 'app-theme-toggle',

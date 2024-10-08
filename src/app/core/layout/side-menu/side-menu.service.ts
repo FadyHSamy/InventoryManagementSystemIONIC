@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IonIcons } from 'src/app/shared/components/icon/icon.component';
+import { IonIcons } from 'src/app/shared/components/ui/icon/icon.component';
 
 export interface SideMenuInterface {
   name: string;

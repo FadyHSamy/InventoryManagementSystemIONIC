@@ -1,17 +1,18 @@
-<app-card>
-  <ion-card-header>
-    <ion-card-title
-      class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-      >Card Title
-    </ion-card-title>
-    <ion-card-subtitle
-      class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white"
-      >Card Subtitle
-    </ion-card-subtitle>
-  </ion-card-header>
+<form [formGroup]="registerForm.formGroup">
 
-  <ion-card-content class="font-normal text-gray-700 dark:text-gray-400">
-    Here's a small text description for the card content. Nothing more, nothing
-    less.
-  </ion-card-content>
-</app-card>
+  <app-card>
+    <app-card-header>
+      <app-card-title>Create an account </app-card-title>
+    </app-card-header>
+
+    <app-card-content>
+      <app-label>Your email</app-label>
+      <app-input
+      [formGroup]="registerForm.formGroup"
+      formControlName="email"
+      placeHolder="name@company.com"
+      ></app-input>
+    </app-card-content>
+  </app-card>
+
+</form>
