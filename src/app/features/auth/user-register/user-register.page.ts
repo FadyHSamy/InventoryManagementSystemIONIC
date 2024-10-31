@@ -19,13 +19,14 @@ import {
   IonCardTitle,
   IonCardSubtitle,
 } from '@ionic/angular/standalone';
-import { CardComponent } from '../../../shared/components/card/card.component';
 import { TextComponent } from '../../../shared/components/ui/text/text.component';
-import { CardContentComponent } from '../../../shared/components/card/card-content/card-content.component';
-import { CardTitleComponent } from '../../../shared/components/card/card-title/card-title.component';
-import { CardHeaderComponent } from '../../../shared/components/card/card-header/card-header.component';
+
 import { LabelComponent } from '../../../shared/components/ui/label/label.component';
 import { InputComponent } from '../../../shared/components/ui/input/input.component';
+import { CardContentComponent } from 'src/app/shared/components/ui/card/card-content/card-content.component';
+import { CardTitleComponent } from 'src/app/shared/components/ui/card/card-title/card-title.component';
+import { CardHeaderComponent } from 'src/app/shared/components/ui/card/card-header/card-header.component';
+import { CardComponent } from 'src/app/shared/components/ui/card/card.component';
 
 interface RegisterForm {
   formGroup: FormGroup;

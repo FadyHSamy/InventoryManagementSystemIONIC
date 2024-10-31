@@ -11,7 +11,6 @@ import { LabelComponent } from '../label/label.component';
 import { CommonModule } from '@angular/common';
 import { InputType } from './input.interface';
 import { ControlValueAccessorDirective } from 'src/app/shared/directives/control-value-accessor.directive';
-import { ErrorInputComponent } from "../../error-input/error-input.component";
 
 export enum InputTypes {
   TEXT = 'text',
@@ -32,7 +31,6 @@ export enum InputTypes {
     ReactiveFormsModule,
     LabelComponent,
     CommonModule,
-    ErrorInputComponent
 ],
   providers: [
     {

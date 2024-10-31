@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { HeaderComponent } from '../header/header.component';
 import { ContentComponent } from '../content/content.component';
+import { Router } from '@angular/router';
+import { SideMenuService } from '../side-menu/side-menu.service';
 
 @Component({
   selector: 'app-base-layout',
@@ -19,7 +21,11 @@ import { ContentComponent } from '../content/content.component';
   ],
 })
 export class BaseLayoutComponent implements OnInit {
+
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 }

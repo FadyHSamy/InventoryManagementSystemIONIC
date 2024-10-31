@@ -7,9 +7,5 @@
     [attr.id]="id || null"
     [formControl]="control"
   />
-  <c-error-input
-    *ngIf="!isValid()"
-    [formContained]="control"
-    [controlName]="name"
-  ></c-error-input>
+
 </div>
