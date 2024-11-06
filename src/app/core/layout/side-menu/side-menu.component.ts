@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { addIcons } from 'ionicons';
 import { pieChart, menu, logOut } from 'ionicons/icons';
-import { SideMenuInterface, SideMenuService } from './side-menu.service';
+import { SideMenuService } from './side-menu.service';
 import { Router, RouterLinkWithHref } from '@angular/router';
 
 import {
@@ -31,8 +31,12 @@ import {
 } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../../../shared/components/ui/label/label.component';
-import { IconComponent } from '../../../shared/components/ui/icon/icon.component';
+import {
+  IconComponent,
+  IonIcons,
+} from '../../../shared/components/ui/icon/icon.component';
 import { ThemeToggleComponent } from 'src/app/shared/components/ui/theme-toggle/theme-toggle.component';
+
 @Component({
   selector: 'app-side-menu',
   templateUrl: './side-menu.component.html',
@@ -70,16 +74,16 @@ import { ThemeToggleComponent } from 'src/app/shared/components/ui/theme-toggle/
   ],
 })
 export class SideMenuComponent implements OnInit {
-  router: Router = inject(Router);
-  constructor() {
+  constructor(public sideMenuService: SideMenuService) {
     addIcons({ pieChart, menu, logOut });
   }
 
-  sideMenuService: SideMenuService = inject(SideMenuService);
+  ngOnInit() {}
 
-  sideMenu: SideMenuInterface[] = [];
-
-  ngOnInit() {
-    this.sideMenu = this.sideMenuService.getActiveSideMenu();
+  onSelectPage(path: string) {
+    this.sideMenuService.navigateToPath(path);
+  }
+  get sideMenu() {
+    return this.sideMenuService.getShowInMenuPages();
   }
 }

@@ -4,7 +4,6 @@ import { IonicModule } from '@ionic/angular';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { HeaderComponent } from '../header/header.component';
 import { ContentComponent } from '../content/content.component';
-import { Router } from '@angular/router';
 import { SideMenuService } from '../side-menu/side-menu.service';
 
 @Component({
@@ -21,11 +20,7 @@ import { SideMenuService } from '../side-menu/side-menu.service';
   ],
 })
 export class BaseLayoutComponent implements OnInit {
+  constructor(public sideMenuService: SideMenuService) {}
 
-
-  constructor() {}
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 }

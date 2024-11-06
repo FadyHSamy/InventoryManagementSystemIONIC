@@ -6,7 +6,7 @@
     >
       <ion-item
         [button]="true"
-        [routerLink]="page.path"
+        (click)="onSelectPage(page.path)"
         *ngFor="let page of sideMenu"
       >
         <app-icon [iconName]="page.icon" class="ion-padding-end"></app-icon>

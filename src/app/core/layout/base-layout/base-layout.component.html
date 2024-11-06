@@ -1,8 +1,8 @@
 <ion-split-pane when="lg" contentId="main">
-  <app-side-menu></app-side-menu>
+  <app-side-menu *ngIf="sideMenuService.isMenuShowActive()"></app-side-menu>
 
   <div class="ion-page" id="main">
-    <app-header></app-header>
+    <app-header *ngIf="sideMenuService.isMenuShowActive()"></app-header>
     <ion-content>
       <app-content></app-content>
     </ion-content>

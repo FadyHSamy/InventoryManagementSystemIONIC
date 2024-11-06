@@ -1,40 +1,31 @@
 import { Injectable } from '@angular/core';
-import { IonIcons } from 'src/app/shared/components/ui/icon/icon.component';
+import { BehaviorSubject } from 'rxjs';
+import { sideMenu } from './menu';
+import { Router } from '@angular/router';
 
-export interface SideMenuInterface {
-  name: string;
-  icon: IonIcons;
-  path: string;
-  showInMenu: boolean;
-  showLayout: boolean;
-}
 @Injectable({
   providedIn: 'root',
 })
 export class SideMenuService {
-  constructor() {}
-  private sideMenu: SideMenuInterface[] = [
-    {
-      name: 'Home',
-      icon: 'home',
-      path: '/home',
-      showInMenu: true,
-      showLayout: true,
-    },
-    {
-      name: 'User Register',
-      icon: 'person',
-      path: '/auth/user-register',
-      showInMenu: true,
-      showLayout: false,
-    },
-  ];
+  private currentUrl = new BehaviorSubject<string>('');
+  private isMenuShow = new BehaviorSubject<boolean>(false);
 
-  getActiveSideMenu() {
-    return this.sideMenu.filter((page) => page.showInMenu === true);
+  constructor(private router: Router) {}
+
+  getShowInMenuPages() {
+    return sideMenu.filter((page) => page.showInMenu === true);
   }
-  shouldShowLayout(path: string): boolean {
-    const page = this.sideMenu.find((menu) => menu.path === path);
-    return page ? page.showLayout : false;
+  showSideMenu() {
+    this.isMenuShow.next(true);
+  }
+  hideSideMenu() {
+    this.isMenuShow.next(false);
+  }
+  isMenuShowActive():boolean{
+    return this.isMenuShow.value;
+  }
+  navigateToPath(path: string) {
+    this.currentUrl.next(path);
+    this.router.navigateByUrl(path);
   }
 }

@@ -1,17 +1,6 @@
-import {
-  ApplicationConfig,
-  importProvidersFrom,
-  isDevMode,
-} from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import {
-  NoPreloading,
-  PreloadAllModules,
-  PreloadingStrategy,
-  provideRouter,
-  RouteReuseStrategy,
-  withPreloading,
-} from '@angular/router';
+import { provideRouter, RouteReuseStrategy } from '@angular/router';
 import { routes } from './app.routes';
 import {
   IonicRouteStrategy,
