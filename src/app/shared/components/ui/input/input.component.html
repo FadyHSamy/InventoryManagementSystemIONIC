@@ -1,11 +1,19 @@
-<div *ngIf="control" class="content-input">
-  <input
-    [ngClass]="{ input: true, 'input-primary': css === 'input-primary' }"
-    [placeholder]="placeholder"
-    [type]="type"
-    [attr.value]="value || null"
-    [attr.id]="id || null"
-    [formControl]="control"
-  />
+<app-label class="block m-2">{{props.label}}</app-label>
 
+<div class="relative">
+  <div
+    class="absolute inset-y-0 start-0 flex items-center ps-2.5 pointer-events-none"
+  >
+    <app-image
+      *ngIf="props.icon"
+      [imageProp]="{
+        source: props.icon
+      }"
+    ></app-image>
+  </div>
+  <input
+    [type]="props.type"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    [placeholder]="props.placeholder"
+  />
 </div>

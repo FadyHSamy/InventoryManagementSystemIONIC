@@ -1,8 +1,8 @@
-import { IonIcons } from 'src/app/shared/components/ui/icon/icon.component';
+import { IonIconProp } from 'src/app/shared/components/ui/icon/icon.component';
 
 interface SideMenuInterface {
   name: string;
-  icon: IonIcons;
+  icon: IonIconProp['name'];
   path: string;
   showInMenu: boolean;
   showLayout: boolean;

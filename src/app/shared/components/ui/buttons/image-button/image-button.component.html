@@ -1,0 +1,31 @@
+<ion-button
+  [disabled]="imageButtonProps.disabled"
+  (click)="imageButtonProps.onClick && imageButtonProps.onClick()"
+  [size]="imageButtonProps.size"
+  [fill]="imageButtonProps.fill"
+  [color]="imageButtonProps.color"
+  [ngClass]="{
+    'p-1': true,
+    border: imageButtonProps.border === true,
+    'rounded-lg': true,
+  }"
+>
+  <app-icon
+    class="pr-2"
+    *ngIf="iconInformation?.name"
+    [IonIconProp]="{
+      name: iconInformation?.name
+    }"
+  >
+  </app-icon>
+  <app-image
+    class="pr-2"
+    *ngIf="assetImageInformation?.path"
+    [imageProp]="{
+      source: assetImageInformation?.path,
+      description: assetImageInformation?.description
+    }"
+  >
+  </app-image>
+  {{ imageButtonProps.label }}
+</ion-button>

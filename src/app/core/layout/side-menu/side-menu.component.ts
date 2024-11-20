@@ -33,7 +33,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../../../shared/components/ui/label/label.component';
 import {
   IconComponent,
-  IonIcons,
 } from '../../../shared/components/ui/icon/icon.component';
 import { ThemeToggleComponent } from 'src/app/shared/components/ui/theme-toggle/theme-toggle.component';
 

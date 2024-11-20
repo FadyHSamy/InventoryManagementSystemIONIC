@@ -9,7 +9,12 @@
         (click)="onSelectPage(page.path)"
         *ngFor="let page of sideMenu"
       >
-        <app-icon [iconName]="page.icon" class="ion-padding-end"></app-icon>
+        <app-icon
+          [IonIconProp]="{
+            name: page.icon
+          }"
+          class="ion-padding-end"
+        ></app-icon>
         <app-label>{{ page.name }}</app-label>
       </ion-item>
     </ion-list>

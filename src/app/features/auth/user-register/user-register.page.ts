@@ -1,32 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonLabel,
-  IonCardContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardSubtitle,
-} from '@ionic/angular/standalone';
-import { TextComponent } from '../../../shared/components/ui/text/text.component';
-
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { IonButtons, IonRow, IonCol } from '@ionic/angular/standalone';
 import { LabelComponent } from '../../../shared/components/ui/label/label.component';
 import { InputComponent } from '../../../shared/components/ui/input/input.component';
 import { CardContentComponent } from 'src/app/shared/components/ui/card/card-content/card-content.component';
 import { CardTitleComponent } from 'src/app/shared/components/ui/card/card-title/card-title.component';
 import { CardHeaderComponent } from 'src/app/shared/components/ui/card/card-header/card-header.component';
 import { CardComponent } from 'src/app/shared/components/ui/card/card.component';
+import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
+import { ImageButtonComponent } from "../../../shared/components/ui/buttons/image-button/image-button.component";
+import { CheckboxComponent } from "../../../shared/components/ui/checkbox/checkbox.component";
+import { LinkComponent } from "../../../shared/components/ui/link/link.component";
 
 interface RegisterForm {
   formGroup: FormGroup;
@@ -36,28 +20,16 @@ interface RegisterForm {
   templateUrl: './user-register.page.html',
   styleUrls: ['./user-register.page.scss'],
   standalone: true,
-  imports: [
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCardHeader,
-    IonCard,
-    IonCardContent,
-    IonLabel,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    CommonModule,
-    FormsModule,
-    CardComponent,
-    TextComponent,
-    CardContentComponent,
-    CardTitleComponent,
-    CardHeaderComponent,
+  imports: [IonCol, IonRow,
+    IonButtons,
     LabelComponent,
     InputComponent,
-    ReactiveFormsModule,
-  ],
+    CardTitleComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardContentComponent,
+    ButtonComponent,
+    ImageButtonComponent, CheckboxComponent, LinkComponent],
 })
 export class UserRegisterPage implements OnInit {
   constructor() {}

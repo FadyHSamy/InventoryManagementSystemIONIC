@@ -1,22 +1,18 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
 import { IonInput, IonLabel, IonText } from '@ionic/angular/standalone';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { CommonModule } from '@angular/common';
-import { InputType } from './input.interface';
-import { ControlValueAccessorDirective } from 'src/app/shared/directives/control-value-accessor.directive';
+import { IconComponent } from '../icon/icon.component';
+import { ImageComponent } from '../image/image.component';
 
-export enum InputTypes {
-  TEXT = 'text',
-  PASSWORD = 'password',
-  EMAIL = 'email',
-  NUMBER = 'number',
+interface InputProps {
+  id?: string;
+  placeholder?: string;
+  initialValue?: string;
+  type: 'text' | 'password' | 'email' | 'number';
+  icon?: string;
+  label: string;
 }
 @Component({
   selector: 'app-input',
@@ -31,24 +27,12 @@ export enum InputTypes {
     ReactiveFormsModule,
     LabelComponent,
     CommonModule,
-],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true,
-    },
+    IconComponent,
+    ImageComponent,
   ],
-  encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent<T> extends ControlValueAccessorDirective<T>
-implements InputType
-{
-  @Input() id = '';
-  @Input() css: InputType['css'] = 'input-primary';
-  @Input() placeholder?: string | undefined;
-  @Input() value?: string | number | undefined;
-  @Input() customErrorMessages: Record<string, string> = {};
-  @Input() name!: string;
+export class InputComponent<T> implements OnInit {
+  @Input({ required: true }) props!: InputProps;
+
+  ngOnInit(): void {}
 }

@@ -1,32 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonButton } from "@ionic/angular/standalone";
+import { IonButton } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
-export interface ButtonComponentInterface {
-  buttonName: string;
-  buttonColor: string;
-  isDisabled?: boolean;
+interface ButtonProps {
+  label: string;
 }
-
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   standalone: true,
-  imports: [IonButton, IonicModule],
+  imports: [IonButton, IonicModule, CommonModule, ReactiveFormsModule],
 })
 export class ButtonComponent implements OnInit {
-  @Input({ required: true }) buttonInputs!: ButtonComponentInterface;
+  @Input({ required: true }) props!: ButtonProps;
 
   constructor() {}
 
-  ngOnInit() {
-    if (!this.buttonInputs) {
-      this.buttonInputs = {
-        buttonName: 'Default Button',
-        buttonColor: 'primary',
-        isDisabled: false,
-      };
-    }
-  }
+  ngOnInit() {}
 }
