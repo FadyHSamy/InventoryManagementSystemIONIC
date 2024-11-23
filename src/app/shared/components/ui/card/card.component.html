@@ -1,6 +1,10 @@
-<ion-card
-
-  class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+<div
+  [ngClass]="{
+    border: props.border === true,
+    shadow: props.shadow === true,
+    'bg-white border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700':
+      true === true
+  }"
 >
   <ng-content></ng-content>
-</ion-card>
+</div>

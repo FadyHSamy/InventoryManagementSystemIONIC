@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+interface CheckBoxProps{
+  label:string;
+}
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
@@ -10,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class CheckboxComponent implements OnInit {
+  @Input({required:true}) props!:CheckBoxProps;
   constructor() {}
 
   ngOnInit() {}

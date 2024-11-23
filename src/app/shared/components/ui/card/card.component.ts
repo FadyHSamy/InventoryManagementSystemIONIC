@@ -10,7 +10,8 @@ import {
 } from '@ionic/angular/standalone';
 
 interface CardProp {
-  backGroundColor?: 'bg-black' | 'bg-white' | 'bg-transparent' | undefined;
+  shadow: boolean;
+  border: boolean;
 }
 @Component({
   selector: 'app-card',
@@ -28,7 +29,7 @@ interface CardProp {
   ],
 })
 export class CardComponent implements OnInit {
-  // @Input({ required: true }) cardProps!: CardProp;
+  @Input({ required: true }) props!: CardProp;
   constructor() {}
 
   ngOnInit() {}

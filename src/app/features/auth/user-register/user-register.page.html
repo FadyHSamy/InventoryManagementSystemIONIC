@@ -1,16 +1,27 @@
-<app-card>
+<app-card
+  [props]="{
+  shadow: false,
+  border: false
+}"
+>
   <app-card-content>
     <ion-row>
-      <ion-col class="leftSide">
-        <app-card class="m-2 text-left">
-          <app-card-header class="text-center">
-            <app-card-title>Create an account </app-card-title>
-          </app-card-header>
-          <app-card-content>
-            <ion-buttons class="justify-center">
-              <app-image-button
-                class="pr-4"
-                [imageButtonProps]="{
+      <!-- <ion-col class="leftSide"> -->
+      <app-card
+        [props]="{
+          shadow: false,
+          border: false
+        }"
+        class="m-2 text-left"
+      >
+        <app-card-header class="text-center">
+          <app-card-title>Create an account </app-card-title>
+        </app-card-header>
+        <app-card-content>
+          <ion-buttons class="justify-center">
+            <app-image-button
+              class="pr-4"
+              [imageButtonProps]="{
                   label: 'Google',
                   image: {
                   type: 'image',
@@ -19,9 +30,9 @@
                 color:'primary',
                 border:true
                 }"
-              ></app-image-button>
-              <app-image-button
-                [imageButtonProps]="{
+            ></app-image-button>
+            <app-image-button
+              [imageButtonProps]="{
                   label: 'Facebook',
                   image: {
                   type: 'image',
@@ -30,71 +41,65 @@
                   color:'primary',
                 border:true
                 }"
-              ></app-image-button>
-            </ion-buttons>
+            ></app-image-button>
+          </ion-buttons>
 
-            <div class="inline-flex items-center justify-center w-full">
-              <hr
-                class="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"
-              />
-              <span
-                class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900"
-              >
-                or continue with email
-              </span>
-            </div>
-
-            <app-input
-              [props]="{
-              type: 'email',
-              placeholder:'Email',
-              icon:'../../../../assets/images/email.png',
-              label:'Email'
-            }"
-            ></app-input>
-            <app-input
-              [props]="{
-              type: 'password',
-              placeholder:'*******',
-              icon:'../../../../assets/images/password.png',
-              label:'Password'
-            }"
-            ></app-input>
-            <ion-row class="p-1">
-              <ion-col>
-                <app-checkbox></app-checkbox>
-              </ion-col>
-              <ion-col class="text-right">
-                <app-link
-                  [props]="{
+          <div class="inline-flex items-center justify-center w-full">
+            <hr class="w-64 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <span
+              class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900"
+            >
+              or continue with email
+            </span>
+          </div>
+          <app-input
+            [id]="'email'"
+            [type]="'email'"
+            [placeHolder]="'Email'"
+            [icon]="'../../../../assets/images/email.png'"
+            [label]="'Email'"
+          ></app-input>
+          <app-input
+            [id]="'password'"
+            [type]="'password'"
+            [placeHolder]="'*******'"
+            [icon]="'../../../../assets/images/password.png'"
+            [label]="'Password'"
+          ></app-input>
+          <ion-row class="p-1">
+            <ion-col>
+              <app-checkbox
+                [props]="{
+                  label:'Remember me'
+                }"
+              ></app-checkbox>
+            </ion-col>
+            <ion-col class="text-right">
+              <app-link
+                [props]="{
                   label: 'Forgot Password',
                 }"
-                ></app-link>
-              </ion-col>
-            </ion-row>
-            <ion-row class="justify-center">
-              <app-button
-                [props]="{
-              label: 'Log In'
-            }"
-                class="w-1/2"
-              ></app-button>
-            </ion-row>
+              ></app-link>
+            </ion-col>
+          </ion-row>
+          <ion-row class="justify-center">
+            <app-button buttonName="Log in" class="w-1/2"></app-button>
+          </ion-row>
 
-            <ion-row class="justify-center m-9">
-              <app-label
-                >Don't have an account?
-                <app-link
-                  [props]="{
+          <ion-row class="justify-center m-9">
+            <app-label
+              >Don't have an account?
+              <app-link
+                [props]="{
                 label: 'Create an account',
               }"
-                ></app-link
-              ></app-label>
-            </ion-row>
-          </app-card-content>
-        </app-card>
-      </ion-col>
-      <ion-col class="rightSide"> </ion-col>
+              ></app-link
+            ></app-label>
+          </ion-row>
+        </app-card-content>
+      </app-card>
+      <!-- </ion-col> -->
+      <!-- <ion-col class="rightSide"> </ion-col> -->
     </ion-row>
   </app-card-content>
 </app-card>

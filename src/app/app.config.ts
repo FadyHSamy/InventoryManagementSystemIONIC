@@ -7,10 +7,11 @@ import {
   provideIonicAngular,
 } from '@ionic/angular/standalone';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { httpLoaderInterceptor } from './core/interceptors/http-loader/http-loader.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptors([])),
+    provideHttpClient(withInterceptors([httpLoaderInterceptor])),
 
     provideRouter(routes),
 

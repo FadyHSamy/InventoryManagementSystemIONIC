@@ -5,7 +5,7 @@ import { authGuard } from './core/guards/auth.guard';
 
 export function redirectBasedOnAuth() {
   const authService = inject(AuthService);
-  return authService.isAuthenticated() ? 'auth/login' : 'auth/user-register';
+  return authService.isAuthenticated() ? 'home' : 'auth/user-login';
 }
 export const routes: Routes = [
   {
@@ -22,6 +22,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'auth/user-login',
+    loadComponent: () =>
+      import('./features/auth/login/login.page').then((m) => m.LoginPage),
+  },
+  {
     path: 'home',
     loadComponent: () =>
       import('./features/home/home.page').then((m) => m.HomePage),
@@ -32,5 +37,6 @@ export const routes: Routes = [
     path: '**',
     redirectTo: (route) => redirectBasedOnAuth(),
     pathMatch: 'full',
-  }, // 404 Error Not Found
+  },
+  // 404 Error Not Found
 ];

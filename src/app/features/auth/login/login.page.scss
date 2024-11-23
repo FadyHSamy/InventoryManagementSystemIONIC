@@ -1,0 +1,52 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.mainCard {
+  display: grid;
+
+  @media (max-width: 768px) {
+    grid-template-columns: none; /* Single column on small screens */
+  }
+
+  @media (min-width: 769px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Two columns on larger screens */
+  }
+}
+
+.rightSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #065ad7; /* Background for larger screens */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+
+  /* Hide on smaller screens */
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+app-image {
+  max-width: 80%; /* Scales image within container */
+  max-height: 80%; /* Maintains proportions */
+  object-fit: contain; /* Prevents distortion */
+}
+
+/* Responsive behavior for .rightSide and image */
+@media (max-width: 768px) {
+  .rightSide {
+    display: none; /* Hides right side on smaller screens */
+  }
+}
+
+@media (min-width: 769px) {
+  .rightSide {
+    display: flex; /* Shows right side on larger screens */
+  }
+}
