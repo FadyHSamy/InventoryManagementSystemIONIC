@@ -1,8 +1,7 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../services/auth/auth.service';
+import { CanActivateFn } from '@angular/router';
+import { AuthService } from '../../api/services/auth/auth.service';
 import { SideMenuService } from '../layout/side-menu/side-menu.service';
-import { redirectBasedOnAuth } from 'src/app/app.routes';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -10,7 +9,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (authService.isAuthenticated()) {
     return true;
   } else {
-    sideMenuService.navigateToPath('auth/user-register');
+    sideMenuService.navigateToPath('auth/user-login');
     return false;
   }
 };

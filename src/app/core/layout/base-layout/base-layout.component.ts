@@ -5,6 +5,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { HeaderComponent } from '../header/header.component';
 import { ContentComponent } from '../content/content.component';
 import { SideMenuService } from '../side-menu/side-menu.service';
+import { AlertComponent } from "../../../shared/components/alert/alert.component";
 
 @Component({
   selector: 'app-base-layout',
@@ -17,7 +18,8 @@ import { SideMenuService } from '../side-menu/side-menu.service';
     SideMenuComponent,
     HeaderComponent,
     ContentComponent,
-  ],
+    AlertComponent
+],
 })
 export class BaseLayoutComponent implements OnInit {
   constructor(public sideMenuService: SideMenuService) {}

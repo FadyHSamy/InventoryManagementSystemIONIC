@@ -8,6 +8,7 @@ import {
   IonToolbar,
   IonLabel,
 } from '@ionic/angular/standalone';
+import { AuthService } from 'src/app/api/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -16,16 +17,14 @@ import {
   standalone: true,
   imports: [
     IonLabel,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
   ],
 })
 export class HomePage implements OnInit {
-  constructor() {}
+  constructor(private authService:AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.logout();
+  }
 }

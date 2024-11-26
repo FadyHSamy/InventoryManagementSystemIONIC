@@ -1,14 +1,7 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { LoaderService } from '../../services/loader/loader.service';
 import { LoadingController } from '@ionic/angular';
-import { catchError, finalize, Observable } from 'rxjs';
-import { Injector } from '@angular/core';
+import { finalize } from 'rxjs';
 
 export const httpLoaderInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingCtrl = new LoadingController();
@@ -18,11 +11,6 @@ export const httpLoaderInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     finalize(() => {
       loadingService.dismissLoading();
-    }),
-    catchError((error) => {
-      console.error('Request failed:', error);
-      loadingService.dismissLoading();
-      throw error;
     })
   );
 };
