@@ -4,12 +4,7 @@
   [checked]="themeService.isDarkTheme()"
 >
   <app-label>
-    <app-icon
-      [IonIconProp]="{
-        name: 'moon'
-      }"
-      class="ion-padding-end"
-    ></app-icon>
+    <app-icon class="ion-padding-end" [icon]="'moon'"></app-icon>
     Dark Mode
   </app-label>
 </ion-toggle>

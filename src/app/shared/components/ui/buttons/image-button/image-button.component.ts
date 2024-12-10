@@ -1,14 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IonButton } from '@ionic/angular/standalone';
-import { IconComponent, IonIconProp } from '../../icon/icon.component';
+import { IconComponent, IonIconsNames } from '../../icon/icon.component';
 import { ImageComponent } from '../../image/image.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
-interface IonIconProps {
-  type: 'icon';
-  name: IonIconProp['name'];
-}
 
 interface AssetImageProps {
   type: 'image';
@@ -16,11 +11,10 @@ interface AssetImageProps {
   description?: string;
 }
 
-type ImageSource = IonIconProps | AssetImageProps;
-
 interface ImageButtonProps {
   label: string;
-  image: ImageSource;
+  icon?: string;
+  ionIcon?: IonIconsNames;
   disabled?: boolean;
   onClick?: () => void;
   fill?: 'clear' | 'solid' | 'outline';
@@ -51,26 +45,25 @@ interface ImageButtonProps {
   ],
 })
 export class ImageButtonComponent implements OnInit {
-  @Input({ required: true }) imageButtonProps!: ImageButtonProps;
+  @Input({ required: true }) label!: string;
+  @Input({ required: false }) icon?: string;
+  @Input({ required: false }) ionIcon?: IonIconsNames;
+  @Input({ required: false }) disabled?: boolean;
+  @Input({ required: false }) onClick?: () => void;
+  @Input({ required: false }) fill?: 'clear' | 'solid' | 'outline';
+  @Input({ required: false }) size?: 'small' | 'medium' | 'large';
+  @Input({ required: false }) color?:
+    | 'danger'
+    | 'dark'
+    | 'light'
+    | 'medium'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'tertiary'
+    | 'warning';
+  @Input({ required: false }) border?: boolean;
   constructor() {}
 
   ngOnInit() {}
-
-  get isIcon() {
-    return this.imageButtonProps.image.type === 'icon';
-  }
-
-  get isImage() {
-    return this.imageButtonProps.image.type === 'image';
-  }
-
-  get iconInformation() {
-    return this.isIcon ? (this.imageButtonProps.image as IonIconProps) : null;
-  }
-
-  get assetImageInformation() {
-    return this.isImage
-      ? (this.imageButtonProps.image as AssetImageProps)
-      : null;
-  }
 }

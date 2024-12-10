@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class ButtonComponent implements OnInit {
   @Input({ required: true }) buttonName: string = '';
   @Input({ required: false }) type: 'submit' | 'reset' | 'button' = 'button';
+  @Input({ required: false }) color: 'red' | 'blue' | 'light' = 'blue';
   @Output() clicked = new EventEmitter<void>(); // Emits when the input loses focus
 
   constructor() {}
@@ -21,5 +22,17 @@ export class ButtonComponent implements OnInit {
   ngOnInit() {}
   onClicked(): void {
     this.clicked.emit(); // Emit the updated value to the parent
+  }
+  get buttonClass(): string {
+    switch (this.color) {
+      case 'blue':
+        return 'btn-blue';
+      case 'light':
+        return 'btn-light';
+      case 'red':
+        return 'btn-red';
+      default:
+        return '';
+    }
   }
 }

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IonInput, IonLabel, IonText } from '@ionic/angular/standalone';
 import {
   FormControl,
   FormGroup,
@@ -8,9 +7,9 @@ import {
 } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { CommonModule } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
 import { ImageComponent } from '../image/image.component';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { IconComponent, IonIconsNames } from '../icon/icon.component';
 
 @Component({
   selector: 'app-input',
@@ -18,23 +17,21 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrls: ['./input.component.scss'],
   standalone: true,
   imports: [
-    IonText,
-    IonLabel,
-    IonInput,
     FormsModule,
     ReactiveFormsModule,
     LabelComponent,
     CommonModule,
-    IconComponent,
     ImageComponent,
     ErrorMessageComponent,
+    IconComponent,
   ],
 })
 export class InputComponent implements OnInit {
   @Input({ required: true }) type: 'text' | 'password' | 'email' | 'number' =
     'text';
   @Input({ required: true }) placeHolder: string = '';
-  @Input({ required: false }) icon?: string;
+  @Input({ required: false }) icon: string | null = null;
+  @Input({ required: false }) ionIcon?: IonIconsNames;
   @Input({ required: true }) label: string = '';
   @Input({ required: true }) id!: string; // Associates the input with a label
   @Input({ required: false }) formGroup: FormGroup | null = null;

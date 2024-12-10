@@ -15,16 +15,10 @@ import { AuthService } from 'src/app/api/services/auth/auth.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [
-    IonLabel,
-    CommonModule,
-    FormsModule,
-  ],
+  imports: [IonLabel, CommonModule, FormsModule],
 })
 export class HomePage implements OnInit {
-  constructor(private authService:AuthService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.authService.logout();
-  }
+  ngOnInit() {}
 }

@@ -15,11 +15,10 @@ export class AlertService {
   constructor() {}
 
   showAlert(type: AlertType, message: string, duration: number = 5000): void {
-    this.type.next(type);
-    this.message.next(message);
+    this.setType = type;
+    this.setMessage = message;
 
     setTimeout(() => {
-      console.log('aaa');
       this.clearAlert();
     }, duration);
   }
@@ -27,5 +26,17 @@ export class AlertService {
   clearAlert(): void {
     this.type.next(null);
     this.message.next(null);
+  }
+  set setType(type: AlertType) {
+    this.type.next(type);
+  }
+  set setMessage(message: string) {
+    this.message.next(message);
+  }
+  get getType() {
+    return this.type.value;
+  }
+  get getMessage() {
+    return this.message.value;
   }
 }

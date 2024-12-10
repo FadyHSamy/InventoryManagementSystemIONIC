@@ -12,13 +12,19 @@ import { Observable } from 'rxjs';
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class AlertComponent implements OnInit {
-  type$: Observable<'Success' | 'Danger' | 'Info' | 'Warning' | 'Dark' | null>;
-  message$: Observable<string | null>;
 
   constructor(private alertService: AlertService) {
-    this.type$ = this.alertService.type$;
-    this.message$ = this.alertService.message$;
+
   }
 
   ngOnInit() {}
+  closeAlert() {
+    this.alertService.clearAlert();
+  }
+  get type() {
+    return this.alertService.getType;
+  }
+  get message() {
+    return this.alertService.getMessage;
+  }
 }

@@ -22,7 +22,6 @@ export const appConfig: ApplicationConfig = {
         errorInterceptor,
       ])
     ),
-
     provideRouter(routes),
 
     provideIonicAngular({

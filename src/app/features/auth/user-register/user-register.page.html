@@ -21,26 +21,16 @@
           <ion-buttons class="justify-center">
             <app-image-button
               class="pr-4"
-              [imageButtonProps]="{
-                  label: 'Google',
-                  image: {
-                  type: 'image',
-                  path: '../../../../assets/images/google-small.png',
-                },
-                color:'primary',
-                border:true
-                }"
+              [label]="'Google'"
+              [icon]="'../../../../assets/images/google-small.png'"
+              [color]="'primary'"
+              [border]="true"
             ></app-image-button>
             <app-image-button
-              [imageButtonProps]="{
-                  label: 'Facebook',
-                  image: {
-                  type: 'image',
-                  path: '../../../../assets/images/facebook-small.png'
-                  },
-                  color:'primary',
-                border:true
-                }"
+              [label]="'Facebook'"
+              [icon]="'../../../../assets/images/facebook-small.png'"
+              [color]="'primary'"
+              [border]="true"
             ></app-image-button>
           </ion-buttons>
 

@@ -8,24 +8,24 @@ import { Router } from '@angular/router';
 })
 export class SideMenuService {
   private currentUrl = new BehaviorSubject<string>('');
-  private isMenuShow = new BehaviorSubject<boolean>(false);
-
+  // private isMenuShow = new BehaviorSubject<boolean>(false);
+  private showLayout = new BehaviorSubject<boolean>(true);
+  showLayout$ = this.showLayout.asObservable();
+  sideMenu = sideMenu;
   constructor(private router: Router) {}
 
   getShowInMenuPages() {
     return sideMenu.filter((page) => page.showInMenu === true);
   }
-  showSideMenu() {
-    this.isMenuShow.next(true);
-  }
-  hideSideMenu() {
-    this.isMenuShow.next(false);
-  }
-  isMenuShowActive():boolean{
-    return this.isMenuShow.value;
+  toggleLayout(show: boolean) {
+    this.showLayout.next(show);
   }
   navigateToPath(path: string) {
     this.currentUrl.next(path);
     this.router.navigateByUrl(path);
+    const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
+    selectedMenu?.showLayout
+      ? this.toggleLayout(true)
+      : this.toggleLayout(false);
   }
 }

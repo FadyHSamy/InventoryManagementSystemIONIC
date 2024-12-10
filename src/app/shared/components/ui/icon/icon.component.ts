@@ -4,11 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 
-type IonIconsNames = keyof typeof import('ionicons/icons'); // Keep this type
-
-export interface IonIconProp {
-  name: IonIconsNames | undefined;
-}
+export type IonIconsNames = keyof typeof import('ionicons/icons'); // Keep this type
 
 @Component({
   selector: 'app-icon',
@@ -18,19 +14,17 @@ export interface IonIconProp {
   imports: [IonIcon, ReactiveFormsModule, CommonModule],
 })
 export class IconComponent implements OnInit {
-  visible?: boolean = false;
-  @Input({ required: true }) IonIconProp!: IonIconProp;
+  @Input({ required: true }) icon!: IonIconsNames;
 
   constructor() {}
 
   async ngOnInit() {
-    this.visible = this.IonIconProp.name === undefined ? false : true;
-    if (!this.IonIconProp.name) return;
+    if (!this.icon) return;
 
-    const icon = await this.loadIcon(this.IonIconProp.name);
+    const icon = await this.loadIcon(this.icon);
 
     if (icon) {
-      addIcons({ [this.IonIconProp.name]: icon });
+      addIcons({ [this.icon]: icon });
     }
   }
 

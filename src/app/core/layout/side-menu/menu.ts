@@ -1,8 +1,8 @@
-import { IonIconProp } from 'src/app/shared/components/ui/icon/icon.component';
+import { IonIconsNames } from 'src/app/shared/components/ui/icon/icon.component';
 
 interface SideMenuInterface {
   name: string;
-  icon: IonIconProp['name'];
+  icon: IonIconsNames;
   path: string;
   showInMenu: boolean;
   showLayout: boolean;
@@ -15,12 +15,5 @@ export const sideMenu: SideMenuInterface[] = [
     path: '/home',
     showInMenu: true,
     showLayout: true,
-  },
-  {
-    name: 'User Register',
-    icon: 'person',
-    path: '/auth/user-register',
-    showInMenu: true,
-    showLayout: false,
   },
 ];

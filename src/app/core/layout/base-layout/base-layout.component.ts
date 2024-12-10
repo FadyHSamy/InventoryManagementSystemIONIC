@@ -5,7 +5,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { HeaderComponent } from '../header/header.component';
 import { ContentComponent } from '../content/content.component';
 import { SideMenuService } from '../side-menu/side-menu.service';
-import { AlertComponent } from "../../../shared/components/alert/alert.component";
+import { AlertComponent } from '../../../shared/components/alert/alert.component';
 
 @Component({
   selector: 'app-base-layout',
@@ -18,11 +18,16 @@ import { AlertComponent } from "../../../shared/components/alert/alert.component
     SideMenuComponent,
     HeaderComponent,
     ContentComponent,
-    AlertComponent
-],
+    AlertComponent,
+  ],
 })
 export class BaseLayoutComponent implements OnInit {
+  showLayout = true;
   constructor(public sideMenuService: SideMenuService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.sideMenuService.showLayout$.subscribe((show) => {
+      this.showLayout = show;
+    });
+  }
 }

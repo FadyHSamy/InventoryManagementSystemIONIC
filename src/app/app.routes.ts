@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AuthService } from './api/services/auth/auth.service';
-import { authGuard } from './core/guards/auth.guard';
+import { authenticationGuard } from './core/guards/authentication.guard';
+import { nonAuthenticationGuard } from './core/guards/non-authentication.guard';
 
 export function redirectBasedOnAuth() {
   const authService = inject(AuthService);
@@ -12,7 +13,7 @@ export const routes: Routes = [
     path: 'product',
     loadComponent: () =>
       import('./features/products/products.page').then((m) => m.ProductsPage),
-    canActivate: [authGuard],
+    canActivate: [authenticationGuard],
   },
   {
     path: 'auth/user-register',
@@ -20,19 +21,19 @@ export const routes: Routes = [
       import('./features/auth/user-register/user-register.page').then(
         (m) => m.UserRegisterPage
       ),
-    canDeactivate: [authGuard],
+    canActivate: [nonAuthenticationGuard],
   },
   {
     path: 'auth/user-login',
     loadComponent: () =>
       import('./features/auth/login/login.page').then((m) => m.LoginPage),
-    canDeactivate: [authGuard],
+    canActivate: [nonAuthenticationGuard],
   },
   {
     path: 'home',
     loadComponent: () =>
       import('./features/home/home.page').then((m) => m.HomePage),
-    canActivate: [authGuard],
+    canActivate: [authenticationGuard],
   },
   { path: '', redirectTo: () => redirectBasedOnAuth(), pathMatch: 'full' },
   {

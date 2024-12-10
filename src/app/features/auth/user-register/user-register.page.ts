@@ -7,7 +7,7 @@ import { CardContentComponent } from 'src/app/shared/components/ui/card/card-con
 import { CardTitleComponent } from 'src/app/shared/components/ui/card/card-title/card-title.component';
 import { CardHeaderComponent } from 'src/app/shared/components/ui/card/card-header/card-header.component';
 import { CardComponent } from 'src/app/shared/components/ui/card/card.component';
-import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
+import { ButtonComponent } from '../../../shared/components/ui/buttons/button/button.component';
 import { ImageButtonComponent } from "../../../shared/components/ui/buttons/image-button/image-button.component";
 import { CheckboxComponent } from "../../../shared/components/ui/checkbox/checkbox.component";
 import { LinkComponent } from "../../../shared/components/ui/link/link.component";

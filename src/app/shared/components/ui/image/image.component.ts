@@ -3,10 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonImg } from '@ionic/angular/standalone';
 
-interface ImageProp {
-  source?: string;
-  description?: string;
-}
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
@@ -15,11 +11,12 @@ interface ImageProp {
   imports: [IonImg, CommonModule, ReactiveFormsModule],
 })
 export class ImageComponent implements OnInit {
-  @Input({ required: true }) imageProp!: ImageProp;
+  @Input({ required: true }) source: string | null = null;
+  @Input({ required: false }) description: string | null = null;
   visible!: boolean;
   constructor() {}
 
   ngOnInit() {
-    this.visible = this.imageProp.source ? true : false;
+    this.visible = this.source ? true : false;
   }
 }

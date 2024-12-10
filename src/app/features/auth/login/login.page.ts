@@ -6,10 +6,11 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { IonRow, IonCol } from '@ionic/angular/standalone';
 import { LinkComponent } from 'src/app/shared/components/ui/link/link.component';
-import { ButtonComponent } from 'src/app/shared/components/ui/button/button.component';
+import { ButtonComponent } from 'src/app/shared/components/ui/buttons/button/button.component';
 import { CardContentComponent } from 'src/app/shared/components/ui/card/card-content/card-content.component';
 import { CardHeaderComponent } from 'src/app/shared/components/ui/card/card-header/card-header.component';
 import { CardTitleComponent } from 'src/app/shared/components/ui/card/card-title/card-title.component';
@@ -23,7 +24,7 @@ import { firstValueFrom, take } from 'rxjs';
 import { AlertService } from 'src/app/shared/services/alert/alert.service';
 
 interface LoginForm {
-  email: FormControl<string | null>;
+  username: FormControl<string | null>;
   password: FormControl<string | null>;
 }
 @Component({
@@ -59,9 +60,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginFormGroup = this.fb.group({
-      email: new FormControl<string>('', [
-        // this.inputValidationsService.EmailValidator(),
-      ]),
+      username: new FormControl<string>('', [Validators.required]),
       password: new FormControl<string>('', [
         this.inputValidationsService.PasswordValidator(),
       ]),
@@ -69,12 +68,12 @@ export class LoginPage implements OnInit {
   }
 
   async onSubmit() {
-    this.alertService.showAlert('Info', 'Testing');
+    this.loginFormGroup.markAllAsTouched();
     if (this.loginFormGroup.invalid) return;
     const formControlsValue = this.loginFormGroup.value;
 
     this.authService.login({
-      username: formControlsValue.email!,
+      username: formControlsValue.username!,
       password: formControlsValue.password!,
     });
   }

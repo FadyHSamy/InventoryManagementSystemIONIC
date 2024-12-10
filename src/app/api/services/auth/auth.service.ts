@@ -11,6 +11,8 @@ import { ApiGenericService } from '../api-generic/api-generic.service';
   providedIn: 'root',
 })
 export class AuthService {
+  private TOKEN: string = 'token';
+
   private currentUserSubject = new BehaviorSubject<
     LoginResponse['user'] | null
   >(null);
@@ -19,7 +21,6 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(
-    private httpClient: HttpClient,
     private sideMenuService: SideMenuService,
     private apiGenericService: ApiGenericService
   ) {}
@@ -31,26 +32,33 @@ export class AuthService {
         credentials
       )
     );
+    console.log(response);
     this.setToken(response.data.token);
-    this.currentUserSubject.next(response.data.user);
-    this.sideMenuService.navigateToPath('/home')
+    this.setUserInformation(response.data.user);
+    this.sideMenuService.navigateToPath('/home');
   }
   logout() {
     this.deleteToken();
-    this.currentUserSubject.next(null);
-    this.sideMenuService.navigateToPath('/auth/user-login')
+    this.setUserInformation(null);
+    this.sideMenuService.navigateToPath('/auth/user-login');
   }
   isAuthenticated(): boolean {
     return this.getToken() === null ? false : true;
   }
+  getUserInformation() {
+    return this.currentUserSubject.value;
+  }
+  setUserInformation(userInfo: LoginResponse['user'] | null) {
+    this.currentUserSubject.next(userInfo);
+  }
   getToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(this.TOKEN);
     return token;
   }
   setToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem(this.TOKEN, token);
   }
   deleteToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.TOKEN);
   }
 }

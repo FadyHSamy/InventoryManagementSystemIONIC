@@ -9,22 +9,25 @@
         (click)="onSelectPage(page.path)"
         *ngFor="let page of sideMenu"
       >
-        <app-icon
-          [IonIconProp]="{
-            name: page.icon
-          }"
-          class="ion-padding-end"
-        ></app-icon>
+        <app-icon [icon]="page.icon" class="ion-padding-end"></app-icon>
         <app-label>{{ page.name }}</app-label>
       </ion-item>
     </ion-list>
     <ion-list
-      class="absolute inset-x-0 bottom-0 bg-gray-50 dark:bg-gray-800"
       lines="none"
+      class="absolute inset-x-0 bottom-0 bg-gray-50 dark:bg-gray-800"
     >
-      <ion-item lines="none">
-        <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
-      </ion-item>
+      <app-list lines="none">
+        <app-item>
+          <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
+        </app-item>
+        <app-item>
+          <app-label>
+            <app-icon class="ion-padding-end" icon="logOut"></app-icon>
+            Logout
+          </app-label>
+        </app-item>
+      </app-list>
     </ion-list>
   </ion-content>
 </ion-menu>

@@ -11,7 +11,7 @@ export class ApiGenericService {
 
   get<T>(url: string, httpParam?: HttpParams) {
     return this.http
-      .get<T>('/api/config', { params: httpParam })
+      .get<ApiResponse<T>>(url, { params: httpParam })
       .pipe((res) => res);
   }
 
