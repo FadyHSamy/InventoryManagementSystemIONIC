@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { computed, effect, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, firstValueFrom, lastValueFrom, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { LoginRequest, LoginResponse } from '../../model/auth/login';
 import { environment } from 'src/environments/environment';
-import { SideMenuService } from 'src/app/core/layout/side-menu/side-menu.service';
 import { ApiGenericService } from '../api-generic/api-generic.service';
+import { NavigationService } from '../navigation.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +19,7 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(
-    private sideMenuService: SideMenuService,
+    private navigationService: NavigationService,
     private apiGenericService: ApiGenericService
   ) {}
 
@@ -35,12 +33,12 @@ export class AuthService {
     console.log(response);
     this.setToken(response.data.token);
     this.setUserInformation(response.data.user);
-    this.sideMenuService.navigateToPath('/home');
+    this.navigationService.navigateToPath('/dashboard');
   }
   logout() {
     this.deleteToken();
     this.setUserInformation(null);
-    this.sideMenuService.navigateToPath('/auth/user-login');
+    this.navigationService.navigateToPath('/auth/user-login');
   }
   isAuthenticated(): boolean {
     return this.getToken() === null ? false : true;

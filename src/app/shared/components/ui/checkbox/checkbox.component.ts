@@ -6,11 +6,10 @@ interface CheckBoxProps{
   label:string;
 }
 @Component({
-  selector: 'app-checkbox',
-  templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+    selector: 'app-checkbox',
+    templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class CheckboxComponent implements OnInit {
   @Input({required:true}) props!:CheckBoxProps;

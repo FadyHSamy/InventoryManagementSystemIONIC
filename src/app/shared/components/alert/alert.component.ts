@@ -5,11 +5,10 @@ import { AlertService } from '../../services/alert/alert.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-alert',
-  templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+    selector: 'app-alert',
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class AlertComponent implements OnInit {
 

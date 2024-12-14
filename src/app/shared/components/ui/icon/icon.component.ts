@@ -3,14 +3,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
+import * as allIcons from 'ionicons/icons';
 
-export type IonIconsNames = keyof typeof import('ionicons/icons'); // Keep this type
+export type IonIconsNames = keyof typeof allIcons;
 
 @Component({
   selector: 'app-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
-  standalone: true,
   imports: [IonIcon, ReactiveFormsModule, CommonModule],
 })
 export class IconComponent implements OnInit {
@@ -18,23 +18,10 @@ export class IconComponent implements OnInit {
 
   constructor() {}
 
-  async ngOnInit() {
-    if (!this.icon) return;
-
-    const icon = await this.loadIcon(this.icon);
-
+  ngOnInit() {
+    const icon = allIcons[this.icon];
     if (icon) {
       addIcons({ [this.icon]: icon });
-    }
-  }
-
-  async loadIcon(iconName: IonIconsNames): Promise<string | null> {
-    try {
-      const icons = await import('ionicons/icons');
-      return icons[iconName] || null;
-    } catch (error) {
-      console.error('Error loading icon:', error);
-      return null;
     }
   }
 }

@@ -4,11 +4,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonImg } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
-  standalone: true,
-  imports: [IonImg, CommonModule, ReactiveFormsModule],
+    selector: 'app-image',
+    templateUrl: './image.component.html',
+    styleUrls: ['./image.component.scss'],
+    imports: [IonImg, CommonModule, ReactiveFormsModule]
 })
 export class ImageComponent implements OnInit {
   @Input({ required: true }) source: string | null = null;

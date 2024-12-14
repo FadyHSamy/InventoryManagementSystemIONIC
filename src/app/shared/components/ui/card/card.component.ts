@@ -17,16 +17,7 @@ interface CardProp {
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  standalone: true,
-  imports: [
-    IonCardContent,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCardHeader,
-    IonCard,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class CardComponent implements OnInit {
   @Input({ required: true }) props!: CardProp;

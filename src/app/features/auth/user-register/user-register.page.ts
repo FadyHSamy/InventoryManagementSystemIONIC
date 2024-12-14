@@ -16,20 +16,19 @@ interface RegisterForm {
   formGroup: FormGroup;
 }
 @Component({
-  selector: 'app-user-register',
-  templateUrl: './user-register.page.html',
-  styleUrls: ['./user-register.page.scss'],
-  standalone: true,
-  imports: [IonCol, IonRow,
-    IonButtons,
-    LabelComponent,
-    InputComponent,
-    CardTitleComponent,
-    CardComponent,
-    CardHeaderComponent,
-    CardContentComponent,
-    ButtonComponent,
-    ImageButtonComponent, CheckboxComponent, LinkComponent],
+    selector: 'app-user-register',
+    templateUrl: './user-register.page.html',
+    styleUrls: ['./user-register.page.scss'],
+    imports: [IonCol, IonRow,
+        IonButtons,
+        LabelComponent,
+        InputComponent,
+        CardTitleComponent,
+        CardComponent,
+        CardHeaderComponent,
+        CardContentComponent,
+        ButtonComponent,
+        ImageButtonComponent, CheckboxComponent, LinkComponent]
 })
 export class UserRegisterPage implements OnInit {
   constructor() {}

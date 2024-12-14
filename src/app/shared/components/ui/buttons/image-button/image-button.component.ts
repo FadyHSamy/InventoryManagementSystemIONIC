@@ -32,17 +32,16 @@ interface ImageButtonProps {
   border?: boolean;
 }
 @Component({
-  selector: 'app-image-button',
-  templateUrl: './image-button.component.html',
-  styleUrls: ['./image-button.component.scss'],
-  standalone: true,
-  imports: [
-    IonButton,
-    IconComponent,
-    ImageComponent,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
+    selector: 'app-image-button',
+    templateUrl: './image-button.component.html',
+    styleUrls: ['./image-button.component.scss'],
+    imports: [
+        IonButton,
+        IconComponent,
+        ImageComponent,
+        CommonModule,
+        ReactiveFormsModule,
+    ]
 })
 export class ImageButtonComponent implements OnInit {
   @Input({ required: true }) label!: string;

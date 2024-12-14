@@ -1,0 +1,9 @@
+<table
+  [ngClass]="{
+  'w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400': true === true,
+  'table-fixed': columnSize === 'fixed',
+  'table-auto': columnSize === 'auto',
+}"
+>
+  <ng-content></ng-content>
+</table>

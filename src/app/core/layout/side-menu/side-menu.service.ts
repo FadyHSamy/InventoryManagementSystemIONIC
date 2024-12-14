@@ -1,31 +1,50 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { sideMenu } from './menu';
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/api/services/auth/auth.service';
+import { NavigationService } from 'src/app/api/services/navigation.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SideMenuService {
-  private currentUrl = new BehaviorSubject<string>('');
-  // private isMenuShow = new BehaviorSubject<boolean>(false);
+export class SideMenuService implements OnDestroy {
+  sideMenu = sideMenu;
+
   private showLayout = new BehaviorSubject<boolean>(true);
   showLayout$ = this.showLayout.asObservable();
-  sideMenu = sideMenu;
-  constructor(private router: Router) {}
+
+  // Subject to signal destruction
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private navigationService: NavigationService,
+    private authService: AuthService
+  ) {
+    this.navigationService.currentRoute$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((path) => {
+        const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
+        this.showLayout.next(!!selectedMenu?.showLayout);
+      });
+
+    this.navigationService.currentRoute$.subscribe((path) => {
+      const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
+      this.showLayout.next(!!selectedMenu?.showLayout);
+    });
+  }
 
   getShowInMenuPages() {
     return sideMenu.filter((page) => page.showInMenu === true);
   }
-  toggleLayout(show: boolean) {
-    this.showLayout.next(show);
+
+  logOut() {
+    this.authService.logout();
   }
-  navigateToPath(path: string) {
-    this.currentUrl.next(path);
-    this.router.navigateByUrl(path);
-    const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
-    selectedMenu?.showLayout
-      ? this.toggleLayout(true)
-      : this.toggleLayout(false);
+
+  // Cleanup resources when the service is destroyed
+  ngOnDestroy(): void {
+    console.log('SideMenuService destroyed');
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

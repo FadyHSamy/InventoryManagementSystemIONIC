@@ -28,26 +28,25 @@ interface LoginForm {
   password: FormControl<string | null>;
 }
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
-  standalone: true,
-  imports: [
-    IonCol,
-    IonRow,
-    CommonModule,
-    FormsModule,
-    LabelComponent,
-    InputComponent,
-    CardTitleComponent,
-    CardComponent,
-    CardHeaderComponent,
-    CardContentComponent,
-    ButtonComponent,
-    LinkComponent,
-    ImageComponent,
-    ReactiveFormsModule,
-  ],
+    selector: 'app-login',
+    templateUrl: './login.page.html',
+    styleUrls: ['./login.page.scss'],
+    imports: [
+        IonCol,
+        IonRow,
+        CommonModule,
+        FormsModule,
+        LabelComponent,
+        InputComponent,
+        CardTitleComponent,
+        CardComponent,
+        CardHeaderComponent,
+        CardContentComponent,
+        ButtonComponent,
+        LinkComponent,
+        ImageComponent,
+        ReactiveFormsModule,
+    ]
 })
 export class LoginPage implements OnInit {
   loginFormGroup!: FormGroup<LoginForm>;

@@ -12,19 +12,18 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
 import { IconComponent, IonIconsNames } from '../icon/icon.component';
 
 @Component({
-  selector: 'app-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    LabelComponent,
-    CommonModule,
-    ImageComponent,
-    ErrorMessageComponent,
-    IconComponent,
-  ],
+    selector: 'app-input',
+    templateUrl: './input.component.html',
+    styleUrls: ['./input.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        LabelComponent,
+        CommonModule,
+        ImageComponent,
+        ErrorMessageComponent,
+        IconComponent,
+    ]
 })
 export class InputComponent implements OnInit {
   @Input({ required: true }) type: 'text' | 'password' | 'email' | 'number' =

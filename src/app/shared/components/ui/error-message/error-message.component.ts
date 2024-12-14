@@ -8,11 +8,10 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-error-message',
-  templateUrl: './error-message.component.html',
-  styleUrls: ['./error-message.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+    selector: 'app-error-message',
+    templateUrl: './error-message.component.html',
+    styleUrls: ['./error-message.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class ErrorMessageComponent implements OnInit {
   @Input({ required: true }) control: AbstractControl | null | undefined = null; // FormControl or AbstractControl

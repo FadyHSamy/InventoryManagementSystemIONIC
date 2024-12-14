@@ -8,18 +8,17 @@ import { SideMenuService } from '../side-menu/side-menu.service';
 import { AlertComponent } from '../../../shared/components/alert/alert.component';
 
 @Component({
-  selector: 'app-base-layout',
-  templateUrl: './base-layout.component.html',
-  styleUrls: ['./base-layout.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-    SideMenuComponent,
-    HeaderComponent,
-    ContentComponent,
-    AlertComponent,
-  ],
+    selector: 'app-base-layout',
+    templateUrl: './base-layout.component.html',
+    styleUrls: ['./base-layout.component.scss'],
+    imports: [
+        CommonModule,
+        IonicModule,
+        SideMenuComponent,
+        HeaderComponent,
+        ContentComponent,
+        AlertComponent,
+    ]
 })
 export class BaseLayoutComponent implements OnInit {
   showLayout = true;

@@ -7,17 +7,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss'],
-  standalone: true,
-  imports: [
-    IonLabel,
-    IonRouterOutlet,
-    IonContent,
-    CommonModule,
-    ReactiveFormsModule,
-  ],
+    selector: 'app-content',
+    templateUrl: './content.component.html',
+    styleUrls: ['./content.component.scss'],
+    imports: [
+        IonRouterOutlet,
+        IonContent,
+        CommonModule,
+        ReactiveFormsModule,
+    ]
 })
 export class ContentComponent implements OnInit {
   constructor() {}

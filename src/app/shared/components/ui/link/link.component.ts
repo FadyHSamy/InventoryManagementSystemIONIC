@@ -6,11 +6,10 @@ interface LinkProps {
   label:string;
 }
 @Component({
-  selector: 'app-link',
-  templateUrl: './link.component.html',
-  styleUrls: ['./link.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+    selector: 'app-link',
+    templateUrl: './link.component.html',
+    styleUrls: ['./link.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class LinkComponent implements OnInit {
   @Input({ required: true }) props!: LinkProps;

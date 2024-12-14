@@ -1,33 +1,43 @@
 <ion-menu contentId="main" swipeGesture="false">
-  <ion-content>
-    <ion-list
-      lines="none"
-      class="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800"
-    >
-      <ion-item
+  <div class="h-full py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+    <app-list lines="none">
+      <app-item
         [button]="true"
         (click)="onSelectPage(page.path)"
         *ngFor="let page of sideMenu"
       >
-        <app-icon [icon]="page.icon" class="ion-padding-end"></app-icon>
-        <app-label>{{ page.name }}</app-label>
-      </ion-item>
-    </ion-list>
-    <ion-list
+        <app-label>
+          <app-icon
+            *ngIf="page.icon"
+            [icon]="page.icon"
+            class="ion-padding-end"
+          ></app-icon>
+          <app-font-awesome-icon
+            *ngIf="page.fontAwesome"
+            class="ion-padding-end"
+            [icon]="page.fontAwesome"
+          ></app-font-awesome-icon>
+          {{ page.name }}</app-label
+        >
+      </app-item>
+    </app-list>
+
+    <app-list
       lines="none"
       class="absolute inset-x-0 bottom-0 bg-gray-50 dark:bg-gray-800"
     >
-      <app-list lines="none">
-        <app-item>
-          <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
-        </app-item>
-        <app-item>
-          <app-label>
-            <app-icon class="ion-padding-end" icon="logOut"></app-icon>
-            Logout
-          </app-label>
-        </app-item>
-      </app-list>
-    </ion-list>
-  </ion-content>
+      <app-item>
+        <app-theme-toggle class="w-full">Dark Mode</app-theme-toggle>
+      </app-item>
+      <app-item [button]="true" (click)="logOutButton()">
+        <app-label>
+          <app-font-awesome-icon
+            class="ion-padding-end"
+            icon="faArrowRightToBracket"
+          ></app-font-awesome-icon>
+          Logout
+        </app-label>
+      </app-item>
+    </app-list>
+  </div>
 </ion-menu>
