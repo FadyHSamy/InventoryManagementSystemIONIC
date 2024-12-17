@@ -1,10 +1,10 @@
-:root {
-  --ion-background-color: #121212;
-  --ion-text-color: #ffffff;
-  --ion-toolbar-background: #1c1c1c;
-  --ion-toolbar-color: #fff;
-  --ion-item-background: #1c1c1c;
-  --ion-item-color: #fff;
-  --primary-color: #bb86fc;
-
+:root.dark {
+  --ion-background-color: #111827; /* Matches bg-gray-800 */
+  --ion-text-color: #f9fafb; /* Text color for dark mode */
+  --ion-toolbar-background: #374151; /* A suitable dark toolbar background */
+  --ion-toolbar-color: #f9fafb; /* Light text on a dark toolbar */
+  --ion-item-background: #374151;
+  --ion-item-color: #f9fafb;
+  --ion-border-color: #374151; /* Matches border-gray-700 */
+  --primary-color: #3880ff;
 }

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { sideMenu } from './menu';
 import { AuthService } from 'src/app/api/services/auth/auth.service';
@@ -7,10 +7,10 @@ import { NavigationService } from 'src/app/api/services/navigation.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SideMenuService implements OnDestroy {
+export class SideMenuService implements OnInit, OnDestroy {
   sideMenu = sideMenu;
 
-  private showLayout = new BehaviorSubject<boolean>(true);
+  private showLayout = new BehaviorSubject<boolean>(false);
   showLayout$ = this.showLayout.asObservable();
 
   // Subject to signal destruction
@@ -26,12 +26,8 @@ export class SideMenuService implements OnDestroy {
         const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
         this.showLayout.next(!!selectedMenu?.showLayout);
       });
-
-    this.navigationService.currentRoute$.subscribe((path) => {
-      const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
-      this.showLayout.next(!!selectedMenu?.showLayout);
-    });
   }
+  ngOnInit(): void {}
 
   getShowInMenuPages() {
     return sideMenu.filter((page) => page.showInMenu === true);
@@ -43,7 +39,6 @@ export class SideMenuService implements OnDestroy {
 
   // Cleanup resources when the service is destroyed
   ngOnDestroy(): void {
-    console.log('SideMenuService destroyed');
     this.destroy$.next();
     this.destroy$.complete();
   }

@@ -1,18 +1,63 @@
-<h1 *ngIf="headingSize === 1" class="text-5xl font-extrabold dark:text-white">
+<h1
+  *ngIf="headingSize === 1"
+  [ngClass]="{
+    'font-extrabold': bold === true,
+    'text-5xl': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h1>
-<h2 *ngIf="headingSize === 2" class="text-4xl font-bold dark:text-white">
+<h2
+  *ngIf="headingSize === 2"
+  [ngClass]="{
+    'font-bold': bold === true,
+    'text-4xl': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h2>
-<h3 *ngIf="headingSize === 3" class="text-3xl font-bold dark:text-white">
+<h3
+  *ngIf="headingSize === 3"
+  [ngClass]="{
+    'font-bold': bold === true,
+    'text-3xl': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h3>
-<h4 *ngIf="headingSize === 4" class="text-2xl font-bold dark:text-white">
+
+<h4
+  *ngIf="headingSize === 4"
+  [ngClass]="{
+    'font-bold': bold === true,
+    'text-2xl': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h4>
-<h5 *ngIf="headingSize === 5" class="text-xl font-bold dark:text-white">
+
+<h5
+  *ngIf="headingSize === 5"
+  [ngClass]="{
+    'font-bold': bold === true,
+    'text-xl': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h5>
-<h6 *ngIf="headingSize === 6" class="text-lg font-bold dark:text-white">
+
+<h6
+  *ngIf="headingSize === 6"
+  [ngClass]="{
+    'font-bold': bold === true,
+    'text-lg': true,
+    'dark:text-white': true
+  }"
+>
   {{ text }}
 </h6>

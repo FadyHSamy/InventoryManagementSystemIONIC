@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { LabelComponent } from '../../shared/components/ui/label/label.component';
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-dashboard',

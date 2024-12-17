@@ -16,7 +16,7 @@ export class NavigationService {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        this.currentRouteSubject.next(event.url);
+        this.currentRouteSubject.next(event.urlAfterRedirects);
       });
   }
 

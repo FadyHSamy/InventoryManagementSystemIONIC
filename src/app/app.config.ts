@@ -1,6 +1,11 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideRouter, RouteReuseStrategy } from '@angular/router';
+import {
+  PreloadAllModules,
+  provideRouter,
+  RouteReuseStrategy,
+  withPreloading,
+} from '@angular/router';
 import { routes } from './app.routes';
 import {
   IonicRouteStrategy,
@@ -14,6 +19,10 @@ import { errorInterceptor } from './core/interceptors/error/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideIonicAngular(),
+    provideRouter(routes, withPreloading(PreloadAllModules)),
+
     provideHttpClient(
       withInterceptors([
         httpLoaderInterceptor,
@@ -22,13 +31,7 @@ export const appConfig: ApplicationConfig = {
         errorInterceptor,
       ])
     ),
-    provideRouter(routes),
 
-    provideIonicAngular({
-      innerHTMLTemplatesEnabled: true,
-    }),
     provideAnimations(),
-
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
 };

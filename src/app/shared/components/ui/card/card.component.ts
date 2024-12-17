@@ -8,11 +8,6 @@ import {
   IonCardSubtitle,
   IonCardContent,
 } from '@ionic/angular/standalone';
-
-interface CardProp {
-  shadow: boolean;
-  border: boolean;
-}
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -20,7 +15,9 @@ interface CardProp {
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class CardComponent implements OnInit {
-  @Input({ required: true }) props!: CardProp;
+
+  @Input({required:false}) shadow: boolean = false;
+  @Input({required:false}) border: boolean = false;
   constructor() {}
 
   ngOnInit() {}

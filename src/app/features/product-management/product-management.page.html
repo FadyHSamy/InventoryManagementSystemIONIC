@@ -1,0 +1,61 @@
+<ion-content>
+  <ion-row class="p-5">
+    <app-text-header [headingSize]="4" text="Inventory"></app-text-header>
+  </ion-row>
+
+  <ion-row class="m-5">
+    <app-card class="w-full" [border]="true" [shadow]="true">
+      <app-card-content>
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="12" size-sm="12" size-md="6" size-lg="7" size-xl="5">
+            <app-searchbar
+              [button]="true"
+              placeholder="Search product"
+              (searchResult)="searchResult($event)"
+            ></app-searchbar>
+          </ion-col>
+          <ion-col size="12" size-sm="12" size-md="4" size-lg="3" size-xl="2">
+            <app-button buttonName="New product"></app-button>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="w-full">
+          <app-grid class="ion-padding">
+            <app-grid-header>
+              <app-table-row>
+                <app-table-header>
+                  <app-label> Product Name </app-label>
+                </app-table-header>
+                <app-table-header>
+                  <app-label> Category </app-label>
+                </app-table-header>
+                <app-table-header>
+                  <app-label> Price </app-label>
+                </app-table-header>
+                <app-table-header>
+                  <app-label>Actions</app-label>
+                </app-table-header>
+              </app-table-row>
+            </app-grid-header>
+            <app-grid-content>
+              <app-table-row>
+                <app-table-column>
+                  <app-label> Product 1 </app-label>
+                </app-table-column>
+                <app-table-column>
+                  <app-label>Electronics</app-label>
+                </app-table-column>
+                <app-table-column>
+                  <app-label>$100.00</app-label>
+                </app-table-column>
+                <app-table-column>
+                  <app-label>Edit</app-label>
+                </app-table-column>
+              </app-table-row>
+            </app-grid-content>
+          </app-grid>
+        </ion-row>
+      </app-card-content>
+    </app-card>
+  </ion-row>
+</ion-content>

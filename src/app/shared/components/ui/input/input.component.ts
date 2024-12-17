@@ -26,13 +26,13 @@ import { IconComponent, IonIconsNames } from '../icon/icon.component';
     ]
 })
 export class InputComponent implements OnInit {
-  @Input({ required: true }) type: 'text' | 'password' | 'email' | 'number' =
+  @Input({ required: false }) type: 'text' | 'password' | 'email' | 'number' =
     'text';
-  @Input({ required: true }) placeHolder: string = '';
+  @Input({ required: false }) placeHolder: string = '';
   @Input({ required: false }) icon: string | null = null;
   @Input({ required: false }) ionIcon?: IonIconsNames;
-  @Input({ required: true }) label: string = '';
-  @Input({ required: true }) id!: string; // Associates the input with a label
+  @Input({ required: false }) label: string = '';
+  @Input({ required: false }) id!: string; // Associates the input with a label
   @Input({ required: false }) formGroup: FormGroup | null = null;
   @Input({ required: false }) controlName: string = ''; // For reactive forms
   @Input({ required: false }) required: boolean = false; // Mark the input as required

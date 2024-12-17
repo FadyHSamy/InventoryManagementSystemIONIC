@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, ReactiveFormsModule],
 })
 export class GridComponent implements OnInit {
-  @Input({ required: true }) columnSize: 'fixed' | 'auto' = 'auto';
+  @Input({ required: false }) columnSize: 'fixed' | 'auto' = 'auto';
 
   constructor() {}
 

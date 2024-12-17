@@ -9,10 +9,11 @@ export function redirectBasedOnAuth() {
   const authService = inject(AuthService);
   const navigationService = inject(NavigationService);
   return authService.isAuthenticated()
-    ? navigationService.DEFAULT_AUTHENTICATED_ROUTE
-    : navigationService.LOGIN_ROUTE;
+    ? navigationService.DEFAULT_AUTHENTICATED_ROUTE || '/dashboard'
+    : navigationService.LOGIN_ROUTE || '/auth/user-login';
 }
 export const routes: Routes = [
+
   {
     path: 'auth/user-register',
     loadComponent: () =>
@@ -36,14 +37,6 @@ export const routes: Routes = [
     canActivate: [authenticationGuard],
   },
   {
-    path: 'inventory',
-    loadComponent: () =>
-      import('./features/inventory/inventory.page').then(
-        (m) => m.InventoryPage
-      ),
-    canActivate: [authenticationGuard],
-  },
-  {
     path: 'orders',
     loadComponent: () =>
       import('./features/orders/orders.page').then((m) => m.OrdersPage),
@@ -56,6 +49,15 @@ export const routes: Routes = [
         (m) => m.SuppliersPage
       ),
     canActivate: [authenticationGuard],
+  },
+  {
+    path: 'product-management',
+    loadComponent: () => import('./features/product-management/product-management.page').then( m => m.ProductManagementPage),
+    canActivate: [authenticationGuard],
+  },
+  {
+    path: 'sales',
+    loadComponent: () => import('./features/sales/sales.page').then( m => m.SalesPage)
   },
   { path: '', redirectTo: () => redirectBasedOnAuth(), pathMatch: 'full' },
   {

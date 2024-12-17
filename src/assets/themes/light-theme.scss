@@ -1,10 +1,10 @@
 :root {
-  --ion-background-color: #ffffff;
+  --ion-background-color: #f9fafb; /* Matches bg-gray-50 */
   --ion-text-color: #000000;
-  --ion-toolbar-background: #f8f8f8;
-  --ion-toolbar-color: #000;
-  --ion-item-background: #f8f8f8;
-  --ion-item-color: #000;
+  --ion-toolbar-background: #ffffff; /* Matches a neutral light background */
+  --ion-toolbar-color: #000000;
+  --ion-item-background: #ffffff;
+  --ion-item-color: #000000;
+  --ion-border-color: #e5e7eb; /* Matches border-gray-200 */
   --primary-color: #3880ff;
-
 }
