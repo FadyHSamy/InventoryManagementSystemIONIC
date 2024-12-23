@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { AuthService } from './api/services/auth/auth.service';
 import { authenticationGuard } from './core/guards/authentication.guard';
 import { nonAuthenticationGuard } from './core/guards/non-authentication.guard';
-import { NavigationService } from './api/services/navigation.service';
+import { NavigationService } from './core/services/navigation/navigation.service';
 
 export function redirectBasedOnAuth() {
   const authService = inject(AuthService);

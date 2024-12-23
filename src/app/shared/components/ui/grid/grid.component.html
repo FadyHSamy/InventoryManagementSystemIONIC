@@ -1,11 +1,26 @@
 <div class="relative overflow-x-auto">
-  <table
-    [ngClass]="{
-  'w-full': true === true,
-  'table-fixed': columnSize === 'fixed',
-  'table-auto': columnSize === 'auto',
-}"
-  >
-    <ng-content></ng-content>
+  <table class="w-full text-sm text-left rtl:text-right">
+    <thead>
+      <tr *ngIf="columns.length">
+        <th
+          *ngFor="let col of columns"
+          [scope]="'col'"
+          class="px-6 py-3 text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          (click)="sortingGrid(col)"
+        >
+          <app-label>{{ col.header }}</app-label>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let row of gridDataAfterModifying"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <td *ngFor="let col of columns" class="px-6 py-4">
+          {{ row[col.field] }}
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>

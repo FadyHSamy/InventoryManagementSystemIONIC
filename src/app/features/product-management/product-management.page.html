@@ -18,43 +18,12 @@
             <app-button buttonName="New product"></app-button>
           </ion-col>
         </ion-row>
-
-        <ion-row class="w-full">
-          <app-grid class="ion-padding">
-            <app-grid-header>
-              <app-table-row>
-                <app-table-header>
-                  <app-label> Product Name </app-label>
-                </app-table-header>
-                <app-table-header>
-                  <app-label> Category </app-label>
-                </app-table-header>
-                <app-table-header>
-                  <app-label> Price </app-label>
-                </app-table-header>
-                <app-table-header>
-                  <app-label>Actions</app-label>
-                </app-table-header>
-              </app-table-row>
-            </app-grid-header>
-            <app-grid-content>
-              <app-table-row>
-                <app-table-column>
-                  <app-label> Product 1 </app-label>
-                </app-table-column>
-                <app-table-column>
-                  <app-label>Electronics</app-label>
-                </app-table-column>
-                <app-table-column>
-                  <app-label>$100.00</app-label>
-                </app-table-column>
-                <app-table-column>
-                  <app-label>Edit</app-label>
-                </app-table-column>
-              </app-table-row>
-            </app-grid-content>
-          </app-grid>
-        </ion-row>
+        <br />
+        <app-grid
+          *ngIf="productGrid.products.length"
+          [columns]="productGrid.columns"
+          [data]="productGrid.products"
+        ></app-grid>
       </app-card-content>
     </app-card>
   </ion-row>

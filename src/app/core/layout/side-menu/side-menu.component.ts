@@ -9,7 +9,7 @@ import { ThemeToggleComponent } from 'src/app/shared/components/ui/theme-toggle/
 import { ListComponent } from '../../../shared/components/ui/list/list.component';
 import { ItemComponent } from '../../../shared/components/ui/list/item/item.component';
 import { FontAwesomeIconComponent } from '../../../shared/components/ui/font-awesome-icon/font-awesome-icon.component';
-import { NavigationService } from 'src/app/api/services/navigation.service';
+import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-side-menu',

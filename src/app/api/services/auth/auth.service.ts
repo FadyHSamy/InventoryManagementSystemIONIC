@@ -3,7 +3,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { LoginRequest, LoginResponse } from '../../model/auth/login';
 import { environment } from 'src/environments/environment';
 import { ApiGenericService } from '../api-generic/api-generic.service';
-import { NavigationService } from '../navigation.service';
+import { NavigationService } from '../../../core/services/navigation/navigation.service';
 
 @Injectable({
   providedIn: 'root',

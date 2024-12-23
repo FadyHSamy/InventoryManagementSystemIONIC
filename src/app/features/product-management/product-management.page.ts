@@ -2,19 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TextHeaderComponent } from '../../shared/components/ui/text-header/text-header.component';
-import { GridComponent } from '../../shared/components/ui/grid/grid.component';
-import { GridHeaderComponent } from '../../shared/components/ui/grid/grid-header/grid-header.component';
-import { GridContentComponent } from '../../shared/components/ui/grid/grid-content/grid-content.component';
-import { TableColumnComponent } from '../../shared/components/ui/grid/table-column/table-column.component';
-import { TableRowComponent } from '../../shared/components/ui/grid/table-row/table-row.component';
-import { TableHeaderComponent } from '../../shared/components/ui/grid/table-header/table-header.component';
-import { LabelComponent } from '../../shared/components/ui/label/label.component';
-import { IonContent, IonRow,IonCol } from '@ionic/angular/standalone';
-import { CardComponent } from "../../shared/components/ui/card/card.component";
-import { CardContentComponent } from "../../shared/components/ui/card/card-content/card-content.component";
-import { ButtonComponent } from "../../shared/components/ui/buttons/button/button.component";
-import { SearchbarComponent } from "../../shared/components/ui/searchbar/searchbar.component";
+import {
+  Column,
+  GridComponent,
+} from '../../shared/components/ui/grid/grid.component';
+import { IonContent, IonRow, IonCol } from '@ionic/angular/standalone';
+import { CardComponent } from '../../shared/components/ui/card/card.component';
+import { CardContentComponent } from '../../shared/components/ui/card/card-content/card-content.component';
+import { ButtonComponent } from '../../shared/components/ui/buttons/button/button.component';
+import { SearchbarComponent } from '../../shared/components/ui/searchbar/searchbar.component';
+import { ProductService } from 'src/app/api/services/product/product.service';
 
+interface ProductGrid {
+  columns: Column[];
+  products: any[];
+}
 @Component({
   selector: 'app-product-management',
   templateUrl: './product-management.page.html',
@@ -25,30 +27,44 @@ import { SearchbarComponent } from "../../shared/components/ui/searchbar/searchb
     CommonModule,
     FormsModule,
     TextHeaderComponent,
-    LabelComponent,
     GridComponent,
-    GridHeaderComponent,
-    TableRowComponent,
-    TableHeaderComponent,
-    GridContentComponent,
-    TableColumnComponent,
     CardComponent,
     CardContentComponent,
     ButtonComponent,
     IonCol,
-    SearchbarComponent
-]
+    SearchbarComponent,
+  ],
 })
 export class ProductManagementPage implements OnInit {
+  productGrid!: ProductGrid;
+  constructor(private productService: ProductService) {}
 
-  constructor() { }
+  async ngOnInit() {
+    this.initializeState();
+    const products = (await this.productService.getAllProducts()).product;
 
-  ngOnInit() {
+    this.productGrid.columns = [
+      { field: 'productName', header: 'Name' },
+      { field: 'productDescription', header: 'Description' },
+      { field: 'categoryName', header: 'Category' },
+      { field: 'productPrice', header: 'Price' },
+    ];
+    this.productGrid.products = products.map((prod) => ({
+      productName: prod.productName,
+      productDescription: prod.productDescription,
+      categoryId: prod.CategoryName,
+      productPrice: prod.productPrice,
+    }));
   }
 
-  searchResult(value:string){
-  console.log("ProductManagementPage ~ searchResult ~ value:", value)
-
+  initializeState() {
+    this.productGrid = {
+      columns: [],
+      products: [],
+    };
   }
 
+  searchResult(value: string) {
+    console.log('searchResult ~ value:', value);
+  }
 }
