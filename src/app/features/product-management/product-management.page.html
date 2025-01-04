@@ -15,7 +15,10 @@
             ></app-searchbar>
           </ion-col>
           <ion-col size="12" size-sm="12" size-md="4" size-lg="3" size-xl="2">
-            <app-button buttonName="New product"></app-button>
+            <app-button
+              buttonName="New product"
+              (clicked)="newProductBtn()"
+            ></app-button>
           </ion-col>
         </ion-row>
         <br />
@@ -28,3 +31,53 @@
     </app-card>
   </ion-row>
 </ion-content>
+
+<app-modal *ngIf="openNewProductModal">
+  <app-modal-header>
+    <app-text-header
+      [headingSize]="5"
+      text="Create New Product"
+    ></app-text-header>
+    <app-font-awesome-icon
+      [icon]="'faClose'"
+      (click)="closeModal()"
+      [clickable]="true"
+    ></app-font-awesome-icon>
+  </app-modal-header>
+  <app-modal-body>
+    <form class="p-4 md:p-5">
+      <ion-row>
+        <app-input
+          class="w-full"
+          [type]="'text'"
+          [placeHolder]="'type product name'"
+          [label]="'Product Name'"
+        >
+        </app-input>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-input
+            [type]="'number'"
+            [label]="'Price'"
+            [placeHolder]="'$2999'"
+          ></app-input>
+        </ion-col>
+        <ion-col>
+          <app-select [label]="'Category'"></app-select>
+        </ion-col>
+      </ion-row>
+      <ion-row class="pb-4">
+        <app-text-area
+          class="w-full"
+          [label]="'Product Description'"
+        ></app-text-area>
+      </ion-row>
+
+      <app-button
+        [type]="'submit'"
+        [buttonName]="'Add New Product'"
+      ></app-button>
+    </form>
+  </app-modal-body>
+</app-modal>

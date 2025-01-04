@@ -1,7 +1,7 @@
 import { Injectable, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-type AlertType = 'Success' | 'Danger' | 'Info' | 'Warning' | 'Dark';
+export type AlertType = 'Success' | 'Danger' | 'Info' | 'Warning' | 'Dark';
 @Injectable({
   providedIn: 'root',
 })

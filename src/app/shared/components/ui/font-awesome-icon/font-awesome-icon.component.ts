@@ -25,6 +25,7 @@ import * as icons from '@fortawesome/free-solid-svg-icons';
 export class FontAwesomeIconComponent implements OnInit {
   @Input({ required: true }) icon!: keyof typeof icons;
   @Input({ required: false }) size: SizeProp = 'lg'
+  @Input({ required: false }) clickable: boolean = false
   iconDefinition!: IconDefinition;
 
   constructor(private library: FaIconLibrary) {}

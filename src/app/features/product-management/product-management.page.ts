@@ -12,10 +12,25 @@ import { CardContentComponent } from '../../shared/components/ui/card/card-conte
 import { ButtonComponent } from '../../shared/components/ui/buttons/button/button.component';
 import { SearchbarComponent } from '../../shared/components/ui/searchbar/searchbar.component';
 import { ProductService } from 'src/app/api/services/product/product.service';
+import { ModalComponent } from '../../shared/components/ui/modal/modal.component';
+import { ModalHeaderComponent } from '../../shared/components/ui/modal/modal-header/modal-header.component';
+import { ModalBodyComponent } from '../../shared/components/ui/modal/modal-body/modal-body.component';
+import { FontAwesomeIconComponent } from '../../shared/components/ui/font-awesome-icon/font-awesome-icon.component';
+import { LabelComponent } from "../../shared/components/ui/label/label.component";
+import { InputComponent } from "../../shared/components/ui/input/input.component";
+import { SelectComponent } from "../../shared/components/ui/select/select.component";
+import { TextComponent } from "../../shared/components/ui/text/text.component";
+import { TextAreaComponent } from "../../shared/components/ui/text-area/text-area.component";
 
-interface ProductGrid {
+interface ProductGrid<T> {
   columns: Column[];
-  products: any[];
+  products: T[];
+}
+interface Product {
+  productName: string;
+  productDescription: string;
+  categoryName: string;
+  productPrice: number;
 }
 @Component({
   selector: 'app-product-management',
@@ -33,28 +48,38 @@ interface ProductGrid {
     ButtonComponent,
     IonCol,
     SearchbarComponent,
-  ],
+    ModalComponent,
+    ModalHeaderComponent,
+    ModalBodyComponent,
+    FontAwesomeIconComponent,
+    InputComponent,
+    SelectComponent,
+    TextAreaComponent
+],
 })
 export class ProductManagementPage implements OnInit {
-  productGrid!: ProductGrid;
+  productGrid!: ProductGrid<Product>;
+  openNewProductModal = false;
   constructor(private productService: ProductService) {}
 
   async ngOnInit() {
     this.initializeState();
     const products = (await this.productService.getAllProducts()).product;
 
-    this.productGrid.columns = [
-      { field: 'productName', header: 'Name' },
-      { field: 'productDescription', header: 'Description' },
-      { field: 'categoryName', header: 'Category' },
-      { field: 'productPrice', header: 'Price' },
-    ];
-    this.productGrid.products = products.map((prod) => ({
-      productName: prod.productName,
-      productDescription: prod.productDescription,
-      categoryId: prod.CategoryName,
-      productPrice: prod.productPrice,
-    }));
+    this.productGrid = {
+      columns: [
+        { field: 'productName', header: 'Name' },
+        { field: 'productDescription', header: 'Description' },
+        { field: 'categoryName', header: 'Category' },
+        { field: 'productPrice', header: 'Price' },
+      ],
+      products: products.map((prod) => ({
+        productName: prod.productName,
+        productDescription: prod.productDescription,
+        categoryName: prod.CategoryName,
+        productPrice: prod.productPrice,
+      })),
+    };
   }
 
   initializeState() {
@@ -66,5 +91,13 @@ export class ProductManagementPage implements OnInit {
 
   searchResult(value: string) {
     console.log('searchResult ~ value:', value);
+  }
+
+  newProductBtn() {
+    console.log('newProductBtn ~ clicked');
+    this.openNewProductModal = true;
+  }
+  closeModal() {
+    this.openNewProductModal = false;
   }
 }

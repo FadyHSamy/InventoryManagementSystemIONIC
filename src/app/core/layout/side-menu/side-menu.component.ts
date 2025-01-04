@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SideMenuService } from './side-menu.service';
-import { IonMenu } from '@ionic/angular/standalone';
+import { IonMenu, MenuController } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../../../shared/components/ui/label/label.component';
 import { IconComponent } from '../../../shared/components/ui/icon/icon.component';
@@ -30,13 +30,15 @@ import { NavigationService } from 'src/app/core/services/navigation/navigation.s
 export class SideMenuComponent implements OnInit {
   constructor(
     private sideMenuService: SideMenuService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private menuController: MenuController
   ) {}
 
   ngOnInit() {}
 
   onSelectPage(path: string) {
     this.navigationService.navigateToPath(path);
+    this.menuController.close();
   }
   get sideMenu() {
     return this.sideMenuService.getShowInMenuPages();

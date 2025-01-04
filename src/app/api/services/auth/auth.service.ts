@@ -4,59 +4,70 @@ import { LoginRequest, LoginResponse } from '../../model/auth/login';
 import { environment } from 'src/environments/environment';
 import { ApiGenericService } from '../api-generic/api-generic.service';
 import { NavigationService } from '../../../core/services/navigation/navigation.service';
+import { TokenService } from 'src/app/core/services/token/token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private TOKEN: string = 'token';
-
   private currentUserSubject = new BehaviorSubject<
     LoginResponse['user'] | null
   >(null);
-  private readonly BASEURL: string = environment.apiUrl + '/Auth';
-
   public currentUser$ = this.currentUserSubject.asObservable();
+
+  private readonly BASEURL = `${environment.apiUrl}/Auth`;
 
   constructor(
     private navigationService: NavigationService,
-    private apiGenericService: ApiGenericService
+    private apiGenericService: ApiGenericService,
+    private tokenService: TokenService
   ) {}
 
-  async login(credentials: LoginRequest) {
+  async login(credentials: LoginRequest): Promise<void> {
     const response = await lastValueFrom(
       this.apiGenericService.post<LoginResponse>(
         `${this.BASEURL}/login`,
         credentials
       )
     );
-    console.log(response);
-    this.setToken(response.data.token);
-    this.setUserInformation(response.data.user);
+
+    this.tokenService.setAccessToken(response.data.token);
+    this.tokenService.setRefreshToken(response.data.refreshToken);
+    this.currentUserSubject.next(response.data.user);
+
     this.navigationService.navigateToPath('/dashboard');
   }
-  logout() {
-    this.deleteToken();
-    this.setUserInformation(null);
+  logout(): void {
+    this.tokenService.removeAccessToken();
+    this.tokenService.removeRefreshToken();
+    this.currentUserSubject.next(null);
     this.navigationService.navigateToPath('/auth/user-login');
   }
   isAuthenticated(): boolean {
-    return this.getToken() === null ? false : true;
+    return !!this.tokenService.getAccessToken();
   }
-  getUserInformation() {
+  getCurrentUser(): LoginResponse['user'] | null {
     return this.currentUserSubject.value;
   }
-  setUserInformation(userInfo: LoginResponse['user'] | null) {
-    this.currentUserSubject.next(userInfo);
-  }
-  getToken() {
-    const token = localStorage.getItem(this.TOKEN);
-    return token;
-  }
-  setToken(token: string) {
-    localStorage.setItem(this.TOKEN, token);
-  }
-  deleteToken() {
-    localStorage.removeItem(this.TOKEN);
+  async refreshToken(): Promise<void> {
+    const token = this.tokenService.getAccessToken();
+    const refreshToken = this.tokenService.getRefreshToken();
+    if (!refreshToken) {
+      this.logout();
+      return;
+    }
+
+    const response = await lastValueFrom(
+      this.apiGenericService.post<{ token: string; refreshToken: string }>(
+        `${this.BASEURL}/RefreshToken`,
+        {
+          token: token,
+          refreshToken: refreshToken,
+        }
+      )
+    );
+    console.log(response);
+    this.tokenService.setAccessToken(response.data.token);
+    this.tokenService.setRefreshToken(response.data.refreshToken);
   }
 }

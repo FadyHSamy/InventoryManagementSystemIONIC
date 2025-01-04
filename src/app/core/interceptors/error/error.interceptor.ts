@@ -4,9 +4,24 @@ import {
   HttpInterceptorFn,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, finalize, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  from,
+  lastValueFrom,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { ApiResponse } from 'src/app/api/model/api-response/api-response';
-import { AlertService } from 'src/app/shared/services/alert/alert.service';
+import { AuthService } from 'src/app/api/services/auth/auth.service';
+import {
+  AlertService,
+  AlertType,
+} from 'src/app/shared/services/alert/alert.service';
+import { TokenService } from '../../services/token/token.service';
 
 enum HttpStatusCode {
   Unauthorized = 401,
@@ -16,44 +31,60 @@ enum HttpStatusCode {
 }
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
+  const tokenService = inject(TokenService);
   const alertService = inject(AlertService);
+
   return next(req).pipe(
     catchError((error) => {
-      let errorMessage = 'An unexpected error has occurred.';
       if (error instanceof HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-          // Client-side error
-          console.error('An error occurred:', error.error.message);
-          errorMessage = `Client-side error: ${error.error.message}`;
-        } else {
-          // Server-side error
-          switch (error.status) {
-            case HttpStatusCode.Unauthorized:
-              errorMessage =
-                error?.error?.message || `Unauthorized: ${error.statusText}`;
-              break;
-            case HttpStatusCode.Forbidden:
-              errorMessage =
-                error?.error?.message || `Forbidden: ${error.statusText}`;
-              break;
-            case HttpStatusCode.NotFound:
-              errorMessage =
-                error?.error?.message ||
-                `Resource not found: ${error.statusText}`;
-              break;
-            case HttpStatusCode.ServiceUnavailable:
-              errorMessage = `Service unavailable: ${error.statusText}`;
-              break;
-            default:
-              errorMessage = `HTTP error: ${error.status} - ${error.statusText}`;
-              break;
-          }
+        if (error.status === HttpStatusCode.Unauthorized) {
+          // Attempt to refresh the token
+          return from(authService.refreshToken()).pipe(
+            switchMap(() => {
+              const newToken = tokenService.getAccessToken();
+              console.log(newToken)
+              if (newToken) {
+                // Clone and retry the original request with the new token
+                console.log(newToken)
+                const modifiedReq = req.clone({
+                  headers: req.headers.set(
+                    'Authorization',
+                    `Bearer ${newToken}`
+                  ),
+                });
+                return next(modifiedReq);
+              } else {
+                // If token refresh fails, log out the user
+                authService.logout();
+                alertService.showAlert('Warning', 'Session expired.');
+                return throwError(() => new Error('Session expired'));
+              }
+            }),
+            catchError(() => {
+              // Handle errors during the token refresh process
+              authService.logout();
+              alertService.showAlert(
+                'Warning',
+                'Session expired. Please log in again.'
+              );
+              return throwError(() => new Error('Session expired'));
+            })
+          );
         }
+
+        // Handle other HTTP errors
+        const errorMessage =
+          error.error?.message ||
+          `HTTP Error: ${error.status} - ${error.statusText}`;
+        alertService.showAlert('Danger', errorMessage);
       } else {
-        console.error(errorMessage);
+        // Handle non-HTTP errors
+        console.error('Unexpected error:', error);
+        alertService.showAlert('Danger', 'An unexpected error occurred.');
       }
-      alertService.showAlert('Danger', errorMessage);
-      return throwError(() => errorMessage);
+
+      return throwError(() => error);
     })
   );
 };

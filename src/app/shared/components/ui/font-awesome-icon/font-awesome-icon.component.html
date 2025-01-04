@@ -1,1 +1,7 @@
-<fa-icon [icon]="iconDefinition.iconName" [size]="size"></fa-icon>
+<fa-icon
+  [icon]="iconDefinition.iconName"
+  [size]="size"
+  [ngClass]="{
+    'cursor-pointer': clickable
+  }"
+></fa-icon>

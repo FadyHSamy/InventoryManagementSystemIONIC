@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
-  imports: [IonRouterOutlet, CommonModule, ReactiveFormsModule, IonContent],
+  imports: [IonRouterOutlet, CommonModule, ReactiveFormsModule],
 })
 export class ContentComponent implements OnInit {
   constructor() {}
