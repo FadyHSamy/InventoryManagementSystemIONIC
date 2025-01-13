@@ -1,11 +1,26 @@
-<app-label class="block m-2">{{ label }}</app-label>
-
-<select
-  [ariaPlaceholder]="placeHolder"
-  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+<app-label
+  [ngClass]="{
+  'block m-2':true,
+}"
+  [isRequired]="isRequired"
+  >{{ label }}</app-label
 >
-  <option value="TV">TV/Monitors</option>
-  <option value="PC">PC</option>
-  <option value="GA">Gaming/Console</option>
-  <option value="PH">Phones</option>
-</select>
+<form *ngIf="formGroup" [formGroup]="formGroup">
+  <select
+    [attr.disabled]="disabled"
+    [formControlName]="controlName"
+    (input)="onInputChange($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+  >
+    <option *ngFor="let opt of optionList" [value]="opt[optionKey]">
+      {{ opt[optionLabel] }}
+    </option>
+  </select>
+</form>
+
+<app-error-message
+  *ngIf="formGroup?.get(controlName)"
+  [control]="formGroup?.get(controlName)"
+></app-error-message>

@@ -41,7 +41,7 @@ export class SideMenuComponent implements OnInit {
     this.menuController.close();
   }
   get sideMenu() {
-    return this.sideMenuService.getShowInMenuPages();
+    return this.sideMenuService.getVisibleMenuItems();
   }
   logOutButton() {
     this.sideMenuService.logOut();

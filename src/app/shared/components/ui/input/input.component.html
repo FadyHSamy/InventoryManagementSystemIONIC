@@ -1,4 +1,4 @@
-<app-label class="block m-2">{{ label }}</app-label>
+<app-label class="block m-2" [isRequired]="isRequired">{{ label }}</app-label>
 
 <div class="relative">
   <div
@@ -12,10 +12,14 @@
       [id]="id"
       [type]="type"
       [placeholder]="placeHolder"
-      [required]="required"
-      [disabled]="disabled"
+      [attr.disabled]="disabled"
       [formControlName]="controlName"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      [ngClass]="{
+        ' ps-10': icon || ionIcon,
+        'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500': true
+      }"
+      appInputMask
+      [mask]="type"
       (input)="onInputChange($event)"
       (focus)="onFocus()"
       (blur)="onBlur()"

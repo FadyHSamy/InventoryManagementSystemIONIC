@@ -10,11 +10,18 @@ interface SideMenuInterface {
   showLayout: boolean;
 }
 
-export const sideMenu: SideMenuInterface[] = [
+export const sideMenuConfig: SideMenuInterface[] = [
   {
     name: 'Dashboard',
     fontAwesome: 'faTableColumns',
     path: '/dashboard',
+    showInMenu: true,
+    showLayout: true,
+  },
+  {
+    name: 'Category',
+    fontAwesome: 'faList',
+    path: '/category',
     showInMenu: true,
     showLayout: true,
   },

@@ -8,8 +8,13 @@
     border: border === true,
     'rounded-lg p-1 w-full': true,
   }"
+  (click)="buttonClicked()"
 >
-  <app-icon class="pr-2" *ngIf="ionIcon" [icon]="ionIcon"> </app-icon>
-  <app-image class="pr-2" *ngIf="icon" [source]="icon"> </app-image>
+  <app-image *ngIf="icon" [source]="icon"> </app-image>
+  <app-icon *ngIf="ionIcon" [icon]="ionIcon"> </app-icon>
+  <app-font-awesome-icon
+    *ngIf="fontIcon"
+    [icon]="fontIcon"
+  ></app-font-awesome-icon>
   {{ label }}
 </ion-button>

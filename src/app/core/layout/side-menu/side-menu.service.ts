@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
-import { sideMenu } from './menu';
+import { sideMenuConfig } from './menu';
 import { AuthService } from 'src/app/api/services/auth/auth.service';
 import { NavigationService } from 'src/app/core/services/navigation/navigation.service';
 
@@ -8,7 +8,7 @@ import { NavigationService } from 'src/app/core/services/navigation/navigation.s
   providedIn: 'root',
 })
 export class SideMenuService implements OnInit, OnDestroy {
-  sideMenu = sideMenu;
+  sideMenuItems = sideMenuConfig;
 
   private showLayout = new BehaviorSubject<boolean>(false);
   showLayout$ = this.showLayout.asObservable();
@@ -23,14 +23,16 @@ export class SideMenuService implements OnInit, OnDestroy {
     this.navigationService.currentRoute$
       .pipe(takeUntil(this.destroy$))
       .subscribe((path) => {
-        const selectedMenu = this.sideMenu.find((menu) => menu.path === path);
+        const selectedMenu = this.sideMenuItems.find(
+          (menu) => menu.path === path
+        );
         this.showLayout.next(!!selectedMenu?.showLayout);
       });
   }
   ngOnInit(): void {}
 
-  getShowInMenuPages() {
-    return sideMenu.filter((page) => page.showInMenu === true);
+  getVisibleMenuItems() {
+    return this.sideMenuItems.filter((page) => page.showInMenu === true);
   }
 
   logOut() {

@@ -1,32 +1,22 @@
 import {
   HttpErrorResponse,
-  HttpEventType,
+  HttpHandlerFn,
   HttpInterceptorFn,
+  HttpRequest,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
-import {
-  catchError,
-  finalize,
-  from,
-  lastValueFrom,
-  mergeMap,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
-import { ApiResponse } from 'src/app/api/model/api-response/api-response';
+import { catchError, from, switchMap, throwError } from 'rxjs';
 import { AuthService } from 'src/app/api/services/auth/auth.service';
-import {
-  AlertService,
-  AlertType,
-} from 'src/app/shared/services/alert/alert.service';
+import { AlertService } from 'src/app/shared/services/alert/alert.service';
 import { TokenService } from '../../services/token/token.service';
 
 enum HttpStatusCode {
+  NoResponse = 0,
+  OK = 200,
   Unauthorized = 401,
   Forbidden = 403,
   NotFound = 404,
+  MethodNotAllowed = 405,
   ServiceUnavailable = 503,
 }
 
@@ -34,57 +24,118 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const tokenService = inject(TokenService);
   const alertService = inject(AlertService);
-
   return next(req).pipe(
-    catchError((error) => {
-      if (error instanceof HttpErrorResponse) {
-        if (error.status === HttpStatusCode.Unauthorized) {
-          // Attempt to refresh the token
-          return from(authService.refreshToken()).pipe(
-            switchMap(() => {
-              const newToken = tokenService.getAccessToken();
-              console.log(newToken)
-              if (newToken) {
-                // Clone and retry the original request with the new token
-                console.log(newToken)
-                const modifiedReq = req.clone({
-                  headers: req.headers.set(
-                    'Authorization',
-                    `Bearer ${newToken}`
-                  ),
-                });
-                return next(modifiedReq);
-              } else {
-                // If token refresh fails, log out the user
-                authService.logout();
-                alertService.showAlert('Warning', 'Session expired.');
-                return throwError(() => new Error('Session expired'));
-              }
-            }),
-            catchError(() => {
-              // Handle errors during the token refresh process
-              authService.logout();
-              alertService.showAlert(
-                'Warning',
-                'Session expired. Please log in again.'
-              );
-              return throwError(() => new Error('Session expired'));
-            })
-          );
-        }
-
-        // Handle other HTTP errors
-        const errorMessage =
-          error.error?.message ||
-          `HTTP Error: ${error.status} - ${error.statusText}`;
-        alertService.showAlert('Danger', errorMessage);
-      } else {
-        // Handle non-HTTP errors
-        console.error('Unexpected error:', error);
-        alertService.showAlert('Danger', 'An unexpected error occurred.');
-      }
-
-      return throwError(() => error);
-    })
+    catchError((error) =>
+      handleHttpError(req, next, error, authService, tokenService, alertService)
+    )
   );
 };
+
+function handleHttpError(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn,
+  error: any,
+  authService: AuthService,
+  tokenService: TokenService,
+  alertService: AlertService
+) {
+  if (!(error instanceof HttpErrorResponse)) {
+    // Handle non-HTTP errors
+    return handleGenericError(error, alertService);
+  }
+  switch (error.status) {
+    case HttpStatusCode.Unauthorized: {
+      return handleUnauthorizedError(
+        req,
+        next,
+        authService,
+        tokenService,
+        alertService
+      );
+    }
+    case HttpStatusCode.NoResponse: {
+      return handleNoResponseError(authService, alertService);
+    }
+
+    default: {
+      return handleUnhandledHttpError(error, alertService);
+    }
+  }
+}
+
+function handleUnauthorizedError(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn,
+  authService: AuthService,
+  tokenService: TokenService,
+  alertService: AlertService
+) {
+  return from(authService.refreshToken()).pipe(
+    switchMap(() => {
+      const newToken = tokenService.getAccessToken();
+      if (newToken) {
+        const clonedRequest = req.clone({
+          headers: req.headers.set('Authorization', `Bearer ${newToken}`),
+        });
+        return next(clonedRequest);
+      } else {
+        authService.logout();
+        alertService.showAlert('Warning', 'Session expired.', {
+          context: 'Interceptor',
+          name: 'errorInterceptor',
+        });
+        return throwError(() => new Error('Session expired'));
+      }
+    }),
+    catchError((refreshError) => {
+      authService.logout();
+      alertService.showAlert(
+        'Warning',
+        'Session expired. Please log in again.',
+        {
+          context: 'Interceptor',
+          name: 'errorInterceptor',
+        }
+      );
+      return throwError(() => new Error(refreshError || 'Session expired'));
+    })
+  );
+}
+
+function handleNoResponseError(
+  authService: AuthService,
+  alertService: AlertService
+) {
+  alertService.showAlert('Danger', 'No response from the server.', {
+    context: 'Interceptor',
+    name: 'errorInterceptor',
+  });
+  authService.logout();
+  return throwError(() => new Error('No response from the server.'));
+}
+
+function handleUnhandledHttpError(
+  error: HttpErrorResponse,
+  alertService: AlertService
+) {
+  const errorMessage =
+    error.error?.message || `HTTP Error: ${error.status} - ${error.statusText}`;
+  console.log('errorMessage', errorMessage);
+  alertService.showAlert('Danger', errorMessage, {
+    context: 'Interceptor',
+    name: 'errorInterceptor',
+  });
+  return throwError(() => new Error(errorMessage));
+}
+
+function handleGenericError(error: any, alertService: AlertService) {
+  alertService.showAlert(
+    'Danger',
+    'An unexpected error occurred. Please try again later.',
+    {
+      context: 'Interceptor',
+      name: 'errorInterceptor',
+    }
+  );
+  return throwError(() => error);
+}

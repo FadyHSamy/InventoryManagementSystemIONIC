@@ -1,9 +1,10 @@
-import { inject } from '@angular/core';
-import { Routes } from '@angular/router';
+import { inject, NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthService } from './api/services/auth/auth.service';
 import { authenticationGuard } from './core/guards/authentication.guard';
 import { nonAuthenticationGuard } from './core/guards/non-authentication.guard';
 import { NavigationService } from './core/services/navigation/navigation.service';
+import { ProductManagementPage } from 'src/app/features/product-management/product-management.page';
 
 export function redirectBasedOnAuth() {
   const authService = inject(AuthService);
@@ -13,7 +14,6 @@ export function redirectBasedOnAuth() {
     : navigationService.LOGIN_ROUTE || '/auth/user-login';
 }
 export const routes: Routes = [
-
   {
     path: 'auth/user-register',
     loadComponent: () =>
@@ -52,12 +52,23 @@ export const routes: Routes = [
   },
   {
     path: 'product-management',
-    loadComponent: () => import('./features/product-management/product-management.page').then( m => m.ProductManagementPage),
+    loadComponent: () =>
+      import('./features/product-management/product-management.page').then(
+        (m) => m.ProductManagementPage
+      ),
     canActivate: [authenticationGuard],
   },
   {
     path: 'sales',
-    loadComponent: () => import('./features/sales/sales.page').then( m => m.SalesPage)
+    loadComponent: () =>
+      import('./features/sales/sales.page').then((m) => m.SalesPage),
+    canActivate: [authenticationGuard],
+  },
+  {
+    path: 'category',
+    loadComponent: () =>
+      import('./features/category/category.page').then((m) => m.CategoryPage),
+    canActivate: [authenticationGuard],
   },
   { path: '', redirectTo: () => redirectBasedOnAuth(), pathMatch: 'full' },
   {

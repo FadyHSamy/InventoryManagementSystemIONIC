@@ -1,42 +1,68 @@
-import { Injectable, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export type AlertType = 'Success' | 'Danger' | 'Info' | 'Warning' | 'Dark';
+
+interface Source {
+  context: 'Component' | 'Page' | 'Interceptor' | 'Service';
+  name: string;
+}
+
+export interface Alert {
+  id: string;
+  message: string;
+  type: AlertType;
+  source: Source;
+  duration?: number;
+  httpResponse?: unknown;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AlertService {
-  private type = new BehaviorSubject<AlertType | null>(null);
-  type$ = this.type.asObservable();
-
-  private message = new BehaviorSubject<string | null>(null);
-  message$ = this.message.asObservable();
+  private alertsSubject = new BehaviorSubject<Alert[]>([]);
 
   constructor() {}
 
-  showAlert(type: AlertType, message: string, duration: number = 5000): void {
-    this.setType = type;
-    this.setMessage = message;
+  showAlert(
+    type: AlertType,
+    message: string,
+    source: Source,
+    httpRequest?: unknown,
+    duration: number = 5000
+  ): void {
+    const alert: Alert = {
+      id: this.generateId(),
+      message: message,
+      type: type,
+      duration: duration,
+      source: source,
+      httpResponse: httpRequest,
+    };
+
+    const currentAlerts = this.alertsSubject.value;
+
+    this.alertsSubject.next([...currentAlerts, alert]);
 
     setTimeout(() => {
-      this.clearAlert();
+      this.clearAlert(alert.id);
     }, duration);
   }
 
-  clearAlert(): void {
-    this.type.next(null);
-    this.message.next(null);
+  generateId(): string {
+    return crypto.randomUUID();
   }
-  set setType(type: AlertType) {
-    this.type.next(type);
+
+  clearAlert(id: string): void {
+    const currentAlerts = this.alertsSubject.value.filter(
+      (alert) => alert.id !== id
+    );
+    this.alertsSubject.next(currentAlerts);
   }
-  set setMessage(message: string) {
-    this.message.next(message);
-  }
-  get getType() {
-    return this.type.value;
-  }
-  get getMessage() {
-    return this.message.value;
+
+  getAlerts(): Observable<Alert[]> {
+    return this.alertsSubject.asObservable();
   }
 }

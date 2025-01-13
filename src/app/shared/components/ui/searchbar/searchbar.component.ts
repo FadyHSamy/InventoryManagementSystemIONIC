@@ -1,38 +1,41 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FontAwesomeIconComponent } from "../font-awesome-icon/font-awesome-icon.component";
+import { FontAwesomeIconComponent } from '../font-awesome-icon/font-awesome-icon.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+} from 'rxjs';
 
-const MINIMUM_LENGTH = 2;
+const MINIMUM_LENGTH = 0;
 
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss'],
-  imports: [FontAwesomeIconComponent,CommonModule,ReactiveFormsModule],
+  imports: [FontAwesomeIconComponent, CommonModule, ReactiveFormsModule],
 })
-export class SearchbarComponent  implements OnInit {
-  @Input({required:false}) placeholder:string = '';
-  @Input({required:false}) button:boolean = false;
+export class SearchbarComponent implements OnInit {
+  @Input({ required: false }) placeholder: string = '';
+  @Input({ required: false }) button: boolean = false;
   @Output() searchResult = new EventEmitter<string>();
-
-
 
   private searchValueSubject = new BehaviorSubject<string>('');
   searchValue$ = this.searchValueSubject.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.searchValue$
       .pipe(
-        filter(searchTerm => searchTerm.length  > MINIMUM_LENGTH),
-        debounceTime(1000),
+        filter((searchTerm) => searchTerm.length >= MINIMUM_LENGTH),
+        debounceTime(500),
         distinctUntilChanged()
       )
       .subscribe((result) => {
-        if(!this.button){
+        if (!this.button) {
           this.searchResult.emit(result);
         }
       });
@@ -45,7 +48,7 @@ export class SearchbarComponent  implements OnInit {
   }
 
   onSearch(): void {
-    if(this.searchValueSubject.value.length > MINIMUM_LENGTH){
+    if (this.searchValueSubject.value.length >= MINIMUM_LENGTH) {
       this.searchResult.emit(this.searchValueSubject.value);
     }
   }

@@ -1,0 +1,81 @@
+<ion-content>
+  <ion-row class="p-5">
+    <app-text-header [headingSize]="4" text="Categories"></app-text-header>
+  </ion-row>
+
+  <ion-row class="m-5">
+    <app-card class="w-full" [border]="true" [shadow]="true">
+      <app-card-content>
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="12" size-sm="12" size-md="6" size-lg="7" size-xl="5">
+            <app-searchbar
+              placeholder="Search category"
+              (searchResult)="searchResult($event)"
+            ></app-searchbar>
+          </ion-col>
+          <ion-col size="12" size-sm="12" size-md="4" size-lg="3" size-xl="2">
+            <app-button
+              buttonName="New category"
+              (clicked)="newCategoryButtonClick()"
+            ></app-button>
+          </ion-col>
+        </ion-row>
+        <br />
+        <app-grid
+          *ngIf="categoryGrid.categories.length"
+          [columns]="categoryGrid.columns"
+          [data]="categoryGrid.categories"
+          [filterColumn]="categoryGrid.filterColumn"
+          [filterText]="categoryGrid.filterText"
+          [showEditBtn]="true"
+          [showDeleteBtn]="true"
+          (editRowData)="editCategoryButtonClick($event)"
+          (deleteRowData)="deleteCategory($event)"
+        ></app-grid>
+      </app-card-content>
+    </app-card>
+  </ion-row>
+</ion-content>
+
+<app-modal *ngIf="categoryModal.visible">
+  <app-modal-header>
+    <app-text-header
+      [headingSize]="5"
+      [text]="categoryModal.edit ? 'Edit Category': 'Create New Category'"
+    ></app-text-header>
+    <app-font-awesome-icon
+      [icon]="'faClose'"
+      (click)="closeModal()"
+      [clickable]="true"
+    ></app-font-awesome-icon>
+  </app-modal-header>
+  <app-modal-body>
+    <form class="p-4 md:p-5" [formGroup]="categoryForm">
+      <ion-row>
+        <app-input
+          class="w-full"
+          [type]="'text'"
+          [placeHolder]="'type category name'"
+          [label]="'Category Name'"
+          [formGroup]="categoryForm"
+          [controlName]="'name'"
+        >
+        </app-input>
+      </ion-row>
+      <br />
+      <ion-row class="pb-4">
+        <app-checkbox
+          [label]="'Active'"
+          [formGroup]="categoryForm"
+          [controlName]="'status'"
+        ></app-checkbox>
+      </ion-row>
+
+      <app-button
+        [type]="'submit'"
+        [buttonName]="categoryModal.edit ? 'Edit Category':'Add New Category'"
+        (clicked)="categoryModal.edit ? editCategory():addCategory()"
+      ></app-button>
+    </form>
+  </app-modal-body>
+</app-modal>

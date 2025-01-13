@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-button',
-    templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss'],
-    imports: [ IonicModule, CommonModule, ReactiveFormsModule]
+  selector: 'app-button',
+  templateUrl: './button.component.html',
+  styleUrls: ['./button.component.scss'],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule],
 })
 export class ButtonComponent implements OnInit {
   @Input({ required: true }) buttonName: string = '';

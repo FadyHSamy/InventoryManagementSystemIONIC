@@ -1,6 +1,6 @@
 <ion-content>
   <ion-row class="p-5">
-    <app-text-header [headingSize]="4" text="Inventory"></app-text-header>
+    <app-text-header [headingSize]="4" text="Products"></app-text-header>
   </ion-row>
 
   <ion-row class="m-5">
@@ -9,7 +9,6 @@
         <ion-row class="ion-justify-content-between">
           <ion-col size="12" size-sm="12" size-md="6" size-lg="7" size-xl="5">
             <app-searchbar
-              [button]="true"
               placeholder="Search product"
               (searchResult)="searchResult($event)"
             ></app-searchbar>
@@ -17,7 +16,7 @@
           <ion-col size="12" size-sm="12" size-md="4" size-lg="3" size-xl="2">
             <app-button
               buttonName="New product"
-              (clicked)="newProductBtn()"
+              (clicked)="newProductButtonClick()"
             ></app-button>
           </ion-col>
         </ion-row>
@@ -26,17 +25,23 @@
           *ngIf="productGrid.products.length"
           [columns]="productGrid.columns"
           [data]="productGrid.products"
+          [filterColumn]="productGrid.filterColumn"
+          [filterText]="productGrid.filterText"
+          [showEditBtn]="true"
+          [showDeleteBtn]="true"
+          (editRowData)="editProductButtonClick($event)"
+          (deleteRowData)="deleteProduct($event)"
         ></app-grid>
       </app-card-content>
     </app-card>
   </ion-row>
 </ion-content>
 
-<app-modal *ngIf="openNewProductModal">
+<app-modal *ngIf="productModal.visible">
   <app-modal-header>
     <app-text-header
       [headingSize]="5"
-      text="Create New Product"
+      [text]="productModal.edit ? 'Edit Product': 'Create New Product'"
     ></app-text-header>
     <app-font-awesome-icon
       [icon]="'faClose'"
@@ -45,13 +50,15 @@
     ></app-font-awesome-icon>
   </app-modal-header>
   <app-modal-body>
-    <form class="p-4 md:p-5">
+    <form class="p-4 md:p-5" [formGroup]="productForm">
       <ion-row>
         <app-input
           class="w-full"
           [type]="'text'"
           [placeHolder]="'type product name'"
           [label]="'Product Name'"
+          [formGroup]="productForm"
+          [controlName]="'name'"
         >
         </app-input>
       </ion-row>
@@ -59,24 +66,44 @@
         <ion-col>
           <app-input
             [type]="'number'"
-            [label]="'Price'"
-            [placeHolder]="'$2999'"
+            [label]="'Quantity'"
+            [placeHolder]="'100'"
+            [formGroup]="productForm"
+            [controlName]="'quantity'"
           ></app-input>
         </ion-col>
         <ion-col>
-          <app-select [label]="'Category'"></app-select>
+          <app-input
+            [type]="'number'"
+            [label]="'Price'"
+            [placeHolder]="'2999'"
+            [formGroup]="productForm"
+            [controlName]="'price'"
+          ></app-input>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-category-dropdown
+            [formGroup]="productForm"
+            [controlName]="'category'"
+          ></app-category-dropdown>
+        </ion-col>
+      </ion-row>
+
       <ion-row class="pb-4">
         <app-text-area
           class="w-full"
           [label]="'Product Description'"
+          [formGroup]="productForm"
+          [controlName]="'description'"
         ></app-text-area>
       </ion-row>
 
       <app-button
         [type]="'submit'"
-        [buttonName]="'Add New Product'"
+        [buttonName]="productModal.edit ? 'Edit Product':'Add New Product'"
+        (clicked)="productModal.edit ? editProduct():addProduct()"
       ></app-button>
     </form>
   </app-modal-body>

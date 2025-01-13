@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivationStart,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject, filter } from 'rxjs';
 
 @Injectable({
@@ -12,7 +17,7 @@ export class NavigationService {
   readonly DEFAULT_AUTHENTICATED_ROUTE = 'dashboard';
   readonly LOGIN_ROUTE = 'auth/user-login';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -28,7 +33,15 @@ export class NavigationService {
   }
 
   navigateToPath(path: string): void {
-    this.currentRouteSubject.next(path);
-    this.router.navigateByUrl(path);
+    const currentPath = this.currentRouteSubject.value;
+    if (currentPath !== path) {
+      this.router.navigateByUrl(path, { replaceUrl: true }).catch((err) => {
+        console.error('Navigation error:', err);
+      });
+    } else {
+      console.log(
+        'Navigation skipped: Target path is the same as the current path.'
+      );
+    }
   }
 }

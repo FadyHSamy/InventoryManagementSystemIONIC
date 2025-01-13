@@ -6,11 +6,11 @@ import { finalize } from 'rxjs';
 export const httpLoaderInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingCtrl = new LoadingController();
   const loadingService = new LoaderService(loadingCtrl);
-  loadingService.presentLoading();
+  const loaderId = loadingService.addLoaderAndGetId();
 
   return next(req).pipe(
     finalize(() => {
-      loadingService.dismissLoading();
+      loadingService.removeLoaderById(loaderId);
     })
   );
 };

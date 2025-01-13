@@ -43,7 +43,7 @@ export class InputValidationsService {
 
   PasswordValidator(): ValidatorFn {
     return (control: AbstractControl) => {
-      const password = control.value as string;
+      const password = control.value as string || '';
 
       // Check if value is only whitespace
       if (password.trim().length === 0) {

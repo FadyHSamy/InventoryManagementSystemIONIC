@@ -24,18 +24,19 @@ export class AuthService {
   ) {}
 
   async login(credentials: LoginRequest): Promise<void> {
-    const response = await lastValueFrom(
-      this.apiGenericService.post<LoginResponse>(
-        `${this.BASEURL}/login`,
-        credentials
-      )
-    );
+    try {
+      const response = await lastValueFrom(
+        this.apiGenericService.post<LoginResponse>(
+          `${this.BASEURL}/login`,
+          credentials
+        )
+      );
+      this.tokenService.setAccessToken(response.data.token);
+      this.tokenService.setRefreshToken(response.data.refreshToken);
+      this.currentUserSubject.next(response.data.user);
 
-    this.tokenService.setAccessToken(response.data.token);
-    this.tokenService.setRefreshToken(response.data.refreshToken);
-    this.currentUserSubject.next(response.data.user);
-
-    this.navigationService.navigateToPath('/dashboard');
+      this.navigationService.navigateToPath('/dashboard');
+    } catch (error) {}
   }
   logout(): void {
     this.tokenService.removeAccessToken();
@@ -66,7 +67,6 @@ export class AuthService {
         }
       )
     );
-    console.log(response);
     this.tokenService.setAccessToken(response.data.token);
     this.tokenService.setRefreshToken(response.data.refreshToken);
   }

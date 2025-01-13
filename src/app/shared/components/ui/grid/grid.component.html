@@ -1,26 +1,59 @@
-<div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left rtl:text-right">
-    <thead>
-      <tr *ngIf="columns.length">
-        <th
-          *ngFor="let col of columns"
-          [scope]="'col'"
-          class="px-6 py-3 text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-          (click)="sortingGrid(col)"
-        >
-          <app-label>{{ col.header }}</app-label>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let row of gridDataAfterModifying"
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-      >
-        <td *ngFor="let col of columns" class="px-6 py-4">
-          {{ row[col.field] }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="flex flex-col">
+  <div class="overflow-x-auto">
+    <div class="min-w-full inline-block align-middle">
+      <div class="overflow-hidden">
+        <table class="min-w-full divide-y">
+          <thead>
+            <tr *ngIf="activeColumns.length">
+              <th
+                *ngFor="let col of activeColumns"
+                [attr.scope]="'col'"
+                class="px-6 py-3 text-start text-xs font-medium bg-gray-50 dark:bg-gray-700 cursor-pointer"
+                (click)="sortingGrid(col)"
+              >
+                <app-label>{{ col.header }}</app-label>
+              </th>
+              <th
+                scope="col"
+                *ngIf="showEditBtn || showDeleteBtn"
+                class="px-6 py-3 text-end text-xs font-medium bg-gray-50 dark:bg-gray-700"
+              ></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let row of gridDataAfterModifying"
+              class="odd:bg-white even:bg-gray-100 dark:odd:bg-neutral-900 dark:even:bg-neutral-800"
+            >
+              <td
+                *ngFor="let col of activeColumns"
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200"
+              >
+                {{ row[col.field] }}
+              </td>
+              <td
+                *ngIf="showEditBtn || showDeleteBtn"
+                class="px-6 py-4 text-end"
+              >
+                <app-image-button
+                  class="inline-flex"
+                  *ngIf="editRowData"
+                  [ionIcon]="'pencil'"
+                  (clicked)="editRow(row)"
+                ></app-image-button>
+
+                <app-image-button
+                  class="inline-flex"
+                  *ngIf="showDeleteBtn"
+                  [ionIcon]="'close'"
+                  color="danger"
+                  (clicked)="deleteRow(row)"
+                ></app-image-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
